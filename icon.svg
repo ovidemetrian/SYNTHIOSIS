@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fff6c2"/>
+      <stop offset="0.45" stop-color="#ffc83d"/>
+      <stop offset="1" stop-color="#e8890c"/>
+    </radialGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7cc4ff"/>
+      <stop offset="1" stop-color="#1d4fd8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#0b1640"/>
+  <path d="M256 70a186 186 0 1 0 0 372a150 150 0 0 1 0-300a112 112 0 0 1 0 224" fill="none" stroke="url(#wave)" stroke-width="34" stroke-linecap="round"/>
+  <path d="M256 70a186 186 0 0 1 0 372M300 120h40v40M330 190h50M340 250h44v30M320 320h40v40" fill="none" stroke="#f2c14e" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#0b1640" stroke="#f2c14e" stroke-width="6">
+    <circle cx="340" cy="160" r="9"/><circle cx="380" cy="190" r="9"/><circle cx="384" cy="280" r="9"/><circle cx="360" cy="360" r="9"/>
+  </g>
+  <circle cx="256" cy="256" r="46" fill="url(#core)"/>
+</svg>

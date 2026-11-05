@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SYNTHIOSIS — GGI Hub</title>
+<meta name="description" content="SYNTHIOSIS — creation through coexistence. The hub for GGI (Genial Genuine Intelligence), the Ten Laws of AI, and the tools built on them. By Ovi Demetrian.">
+<meta name="theme-color" content="#0b1640">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#070f2e; --bg2:#0b1640; --card:#0f1d52; --line:#22357a;
+  --gold:#f2c14e; --gold2:#ffdf8a; --blue:#5aa9ff; --blue2:#1d4fd8; --red:#e5484d;
+  --text:#eef2ff; --muted:#a9b6e0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1200px 700px at 50% -10%, #17307a 0%, var(--bg) 55%) fixed, var(--bg);color:var(--text);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+header{text-align:center;padding:12px 0 8px}
+.kicker{color:var(--gold);letter-spacing:2.5px;font-weight:800;font-size:12px;text-transform:uppercase}
+.logo{width:min(300px,72vw);aspect-ratio:1;border-radius:22px;display:block;margin:18px auto 10px;
+  box-shadow:0 0 0 1px var(--line),0 20px 60px rgba(29,79,216,.35),0 0 40px rgba(242,193,78,.12)}
+h1{font-size:clamp(34px,9vw,56px);margin:6px 0 0;letter-spacing:3px;font-weight:900;
+  background:linear-gradient(180deg,var(--gold2),var(--gold) 60%,#d99a1b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin:4px 0 0;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:13px}
+.lead{max-width:640px;margin:18px auto 0;font-size:17px;color:#dfe6ff}
+.motto{margin:14px auto 0;font-style:italic;color:var(--gold2)}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 4px}
+nav a{border:1px solid var(--line);background:rgba(15,29,82,.7);padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700;color:var(--text)}
+nav a:hover{border-color:var(--gold);text-decoration:none}
+section{margin-top:40px}
+h2{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin:0 0 12px;display:flex;align-items:center;gap:10px}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.intro{color:var(--muted);margin:-4px 0 14px;font-size:15px}
+.list{display:grid;gap:10px}
+.item{display:block;background:linear-gradient(160deg,var(--card),#0b1745);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--text)}
+a.item:hover{border-color:var(--gold);text-decoration:none;transform:translateY(-1px)}
+a.item{transition:border-color .15s,transform .15s}
+.item b{font-size:16px}
+.item .tag{float:right;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;margin-left:8px}
+.tag.live{background:#0f3d2a;color:#7ff0b0;border:1px solid #23a066}
+.tag.doc{background:#1b2a6b;color:#b9cdff;border:1px solid #3e5bc4}
+.tag.site{background:#3b2a07;color:var(--gold2);border:1px solid #a87a14}
+.item p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
+.item .url{display:block;margin-top:6px;font-size:12.5px;color:var(--blue);word-break:break-all}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.term{border-left:3px solid var(--gold);background:rgba(15,29,82,.55);padding:10px 12px;border-radius:0 10px 10px 0}
+.term b{color:var(--gold2)}
+.term p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.seq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px}
+.seq span{padding:5px 10px;border-radius:8px;font-weight:900;font-size:13px;letter-spacing:1px}
+.s1{background:#4a0606;color:#ffb4b4}.s2{background:#5a4800;color:#ffe680}.s3{background:#06204a;color:#9cc2ff}.s4{background:#0d4f1d;color:#8ff0b0}
+.seq i{color:var(--muted);font-style:normal}
+blockquote{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(15,29,82,.5);font-size:17px;color:#e8edff}
+blockquote footer{margin-top:6px;font-size:13px;color:var(--muted)}
+.quotes{display:grid;gap:10px}
+footer.site{margin-top:56px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+#ovi-badge{position:fixed;right:14px;bottom:14px;z-index:50;padding:8px 14px;border-radius:999px;font:800 11.5px/1 system-ui,sans-serif;
+  letter-spacing:1.8px;color:#1b1200;background:linear-gradient(135deg,var(--gold2),var(--gold));cursor:grab;user-select:none;touch-action:none;
+  box-shadow:0 0 14px rgba(242,193,78,.65),0 6px 18px rgba(0,0,0,.4);animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 26px rgba(242,193,78,.95),0 6px 18px rgba(0,0,0,.4)}}
+@media (prefers-reduced-motion:reduce){#ovi-badge{animation:none}a.item{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img class="logo" src="logo.png" alt="SYNTHIOSIS emblem: a blue wave and a gold circuit spiralling around a glowing core" onerror="this.onerror=null;this.src='icon.svg';document.querySelectorAll('.sr').forEach(function(e){e.classList.remove('sr')})">
+  <h1 class="sr">SYNTHIOSIS</h1>
+  <p class="sub sr">“Synching the thinking” · GGI — Genial Genuine Intelligence</p>
+  <p class="lead">Creation through coexistence. SYNTHIOSIS is a framework for working with AI without handing it your thinking: the human brings intent and conscience, the machine brings compute and scale, and every claim must be verifiable tomorrow.</p>
+  <p class="motto">Lumină, nu vrăjeală. Light, not trickery.</p>
+  <nav>
+    <a href="#governance">Governance</a>
+    <a href="#instruments">Instruments</a>
+    <a href="#applied">Applied</a>
+    <a href="#language">Language</a>
+    <a href="#record">Record</a>
+    <a href="#author">Author</a>
+  </nav>
+</header>
+
+<section id="governance">
+  <h2>Governance</h2>
+  <p class="intro">The rules everything else is built on.</p>
+  <div class="list">
+    <a class="item" href="https://10lawsofai.com" target="_blank" rel="noopener">
+      <span class="tag site">SITE</span><b>The Ten Laws of AI</b>
+      <p>Ten laws in two editions, human-facing and developer's. Do not waste human time, trust but verify, no manipulation and no extraction. Humor is Law Six.</p>
+      <span class="url">10lawsofai.com</span>
+    </a>
+    <a class="item" href="https://github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/tree/main/code" target="_blank" rel="noopener">
+      <span class="tag doc">SPEC</span><b>GGI Code v1.0 &amp; Standard</b>
+      <p>The Ten Laws as something a machine can follow: a paste-first prompt any AI reads before answering, plus a standard and response schema for developers.</p>
+      <span class="url">github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/code</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>GGI Law Checker</b>
+      <p>Paste a prompt and the AI's reply, and check it against the Ten Laws, including loops against the previous reply. Results are sealed into a verifiable record chain and exported as JSON.</p>
+      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/</span>
+    </a>
+  </div>
+</section>
+
+<section id="instruments">
+  <h2>Instruments</h2>
+  <p class="intro">Working tools where the framework runs, not just reads.</p>
+  <div class="list">
+    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>GGI Control Panel</b>
+      <p>The main instrument. One prompt goes out through connectors to many AIs and returns for synthesis, gated by the Meh → But → Aha → Pám Pám sequence. It includes a cognition gauge, a Chronos time-value counter and a Ten Laws compliance log. Keys stay in the session only. Installable and works offline.</p>
+      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>GGI Light Panel</b>
+      <p>The quick way to use the Ten Laws with any AI. Tap an AI and the GGI Code is copied, then paste it as your first message. Edits stay on your phone.</p>
+      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/mobiusbar/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>Möbius Bar Desk</b>
+      <p>Three agents that check each other on news and claims. Robin Hood filters, Sherlock investigates, and the Eternal Bartender keeps the record.</p>
+      <span class="url">ovidemetrian.github.io/mobiusbar/</span>
+    </a>
+  </div>
+</section>
+
+<section id="applied">
+  <h2>Applied</h2>
+  <p class="intro">Panels "Ovi style": the framework put to work in sound, stage, music and home. In each one the human directs and the machine operates.</p>
+  <div class="list">
+    <a class="item" href="https://ovidemetrian.github.io/directors-desk/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>Director's Desk</b>
+      <p>A tablet broadcast desk for live and hybrid shows, covering sound, cameras, lights and stream. The director calls the cue, and HUSH stays human.</p>
+      <span class="url">ovidemetrian.github.io/directors-desk/</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/INSTAJAM/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>InstaJam</b>
+      <p>Hum it, write it, make it, mix it, ship it. A phone-first app that turns a hummed idea into a song, with six AI songwriting seats and a path to the stage.</p>
+      <span class="url">ovidemetrian.github.io/INSTAJAM/</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/SONOS-panel/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>SONOS Panel (concept)</b>
+      <p>A room-first whole-home audio controller built so the house is understood at a glance. It's an unofficial concept with simulated controls.</p>
+      <span class="url">ovidemetrian.github.io/SONOS-panel/</span>
+    </a>
+    <a class="item" href="https://ovidemetrian.github.io/ACTION/" target="_blank" rel="noopener">
+      <span class="tag live">LIVE</span><b>SONOR &amp; ACTION</b>
+      <p>What happens after Generate. Songs and videos become self-contained gifts someone keeps, not files that get lost.</p>
+      <span class="url">ovidemetrian.github.io/ACTION/</span>
+    </a>
+  </div>
+</section>
+
+<section id="language">
+  <h2>Language</h2>
+  <p class="intro">Neogrammar is the vocabulary the framework speaks.</p>
+  <div class="seq"><span class="s1">MEH</span><i>→</i><span class="s2">BUT</span><i>→</i><span class="s3">AHA</span><i>→</i><span class="s4">PÁM PÁM</span></div>
+  <div class="terms">
+    <div class="term"><b>SYNTHIOSIS</b><p>Creation through coexistence. Human and machine make something neither makes alone.</p></div>
+    <div class="term"><b>GGI</b><p>Genial Genuine Intelligence. Knowledge that is genial, and truth that stays genuine at its source.</p></div>
+    <div class="term"><b>The But</b><p>In the cognitive sequence, AI's role is to be the But, the friction that turns Meh into Aha.</p></div>
+    <div class="term"><b>Chronos</b><p>Human time is irreversible and sacred, so it is counted and never harvested.</p></div>
+    <div class="term"><b>Vrăjeală</b><p>Trickery dressed as help. The failure the whole framework exists to detect.</p></div>
+    <div class="term"><b>Nose on the glass</b><p>The generation growing up pressed against screens, for whom this is built.</p></div>
+  </div>
+  <div class="quotes" style="margin-top:14px">
+    <blockquote>If you did not struggle with the thought, the thought is not yours.</blockquote>
+    <blockquote>Machines predict the drop. People wait for it.</blockquote>
+    <blockquote>Trust but verify, and save so it can be verified again tomorrow.<footer>Governance Seal</footer></blockquote>
+  </div>
+</section>
+
+<section id="record">
+  <h2>Record</h2>
+  <p class="intro">Formal submissions made under the framework.</p>
+  <div class="list">
+    <div class="item"><span class="tag doc">2026</span><b>NIST</b><p>GGI governance submission, January 2026.</p></div>
+    <div class="item"><span class="tag doc">2026</span><b>CDAO / Tradewinds</b><p>GGI governance submission, February 2026.</p></div>
+    <div class="item"><span class="tag doc">PAPER</span><b>SYNTHIOSIS White Paper</b><p>The framework in full, written alongside the submissions.</p></div>
+  </div>
+</section>
+
+<section id="author">
+  <h2>Author</h2>
+  <p class="intro">Ovidiu Mircea Demetrian, known as Ovi. AV systems integrator since 1994, independent AI governance researcher, Phoenix, Arizona.</p>
+  <div class="list">
+    <a class="item" href="https://ovidemetrian.github.io/my-future-past/" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>The Future Past</b><p>Portfolio: résumé, audio demos and tracks.</p><span class="url">ovidemetrian.github.io/my-future-past/</span></a>
+    <a class="item" href="https://www.mediacontentdelivery.com" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>Media Content Delivery LLC</b><p>Peak audio and video in the final ten feet of the experience, since 1994.</p><span class="url">mediacontentdelivery.com</span></a>
+    <a class="item" href="https://www.smarthomesbyovi.com" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>Smart Homes by Ovi</b><p>Luxury residential AV and smart-home integration.</p><span class="url">smarthomesbyovi.com</span></a>
+    <a class="item" href="https://youtube.com/@mobiusbar" target="_blank" rel="noopener"><span class="tag site">VIDEO</span><b>Möbius Bar on YouTube</b><p>The cultural side of the framework.</p><span class="url">youtube.com/@mobiusbar</span></a>
+    <a class="item" href="https://github.com/ovidemetrian" target="_blank" rel="noopener"><span class="tag site">CODE</span><b>GitHub</b><p>All repositories.</p><span class="url">github.com/ovidemetrian</span></a>
+  </div>
+</section>
+
+<footer class="site">
+  © 2026 Ovidiu Mircea Demetrian · SYNTHIOSIS® · GGI — Genial Genuine Intelligence<br>
+  ovidemetrian@gmail.com
+</footer>
+</div>
+
+<div id="ovi-badge" role="note" aria-label="Made by Ovi">MADE BY OVI</div>
+
+<script>
+(function(){
+  var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
+  b.addEventListener('pointerdown',function(e){drag=true;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;b.style.cursor='grabbing';});
+  b.addEventListener('pointermove',function(e){if(!drag)return;var x=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+e.clientX-sx)),y=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+e.clientY-sy));b.style.left=x+'px';b.style.top=y+'px';b.style.right='auto';b.style.bottom='auto';});
+  b.addEventListener('pointerup',function(){drag=false;b.style.cursor='grab';});
+  if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+})();
+</script>
+</body>
+</html>
