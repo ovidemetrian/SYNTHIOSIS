@@ -1,5 +1,5 @@
 /* SYNTHIOSIS hub — offline shell. Law Eight: the record opens with or without a network. */
-const CACHE = 'synthiosis-hub-v7';
+const CACHE = 'synthiosis-hub-v8';
 const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
 const EXTRAS = ['./logo.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => e.waitUntil(
