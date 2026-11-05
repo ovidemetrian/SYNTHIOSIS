@@ -48,6 +48,13 @@ a.item{transition:border-color .15s,transform .15s}
 .tag.live{background:#0f3d2a;color:#7ff0b0;border:1px solid #23a066}
 .tag.doc{background:#1b2a6b;color:#b9cdff;border:1px solid #3e5bc4}
 .tag.site{background:#3b2a07;color:var(--gold2);border:1px solid #a87a14}
+.tag.video{background:#4a0b0b;color:#ffb0b0;border:1px solid #c83a3a}
+.fm{margin-top:10px;display:grid;gap:6px}
+.fm-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:4px 0 2px}
+.fm div:not(.fm-title){display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:rgba(15,29,82,.55);border:1px solid var(--line)}
+.fm b{color:#ff8a8a;font-size:13px;font-family:ui-monospace,Menlo,monospace}
+.fm span{color:var(--muted);font-size:14px}
+.fm em{color:#e8edff;font-style:normal;font-weight:700}
 .item p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
 .item .url{display:block;margin-top:6px;font-size:12.5px;color:var(--blue);word-break:break-all}
 .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
@@ -89,6 +96,7 @@ footer.site{margin-top:56px;text-align:center;color:var(--muted);font-size:13px;
     <a href="#instruments">Instruments</a>
     <a href="#applied">Applied</a>
     <a href="#language">Language</a>
+    <a href="#watch">Watch</a>
     <a href="#record">Record</a>
     <a href="#author">Author</a>
   </nav>
@@ -189,6 +197,26 @@ footer.site{margin-top:56px;text-align:center;color:var(--muted);font-size:13px;
     <blockquote>If you did not struggle with the thought, the thought is not yours.</blockquote>
     <blockquote>Machines have the speed. Humans have the time.<footer>The machine's speed and volume must never overwhelm a person's time to think. A human processes slower, so the machine delivers at the pace a person can absorb, not the pace it can produce.</footer></blockquote>
     <blockquote>Trust but verify, and save so it can be verified again tomorrow.<footer>Governance Seal</footer></blockquote>
+  </div>
+</section>
+
+<section id="watch">
+  <h2>Watch</h2>
+  <p class="intro">The framework explained on video.</p>
+  <div class="list">
+    <a class="item" href="https://youtu.be/53KrtN-OFD8" target="_blank" rel="noopener">
+      <span class="tag video">▶ VIDEO</span><b>From Alchemy to Chemistry: AGI vs GGI</b>
+      <p>The race to AGI is chasing a goal no one can specify, like medieval alchemy, driven by benchmark theater instead of measurable progress. GGI is the chemistry instead: a tool that reliably carries out specific human intent. Covers the five failure modes, the output bundle, Stewardship OS and the Ten Laws, and ends on a reminder: AI is an instrument, like a piano, and responsibility for the performance lies with the people who build it.</p>
+      <span class="url">youtu.be/53KrtN-OFD8 · about 16 min</span>
+    </a>
+  </div>
+  <div class="fm">
+    <div class="fm-title">The five failure modes</div>
+    <div><b>FM001</b><span><em>Drift.</em> Semantic nuance is lost along the way.</span></div>
+    <div><b>FM002</b><span><em>Constraint violation.</em> Boundaries the user set are ignored.</span></div>
+    <div><b>FM003</b><span><em>Hallucinated grounding.</em> Facts are fabricated to look helpful.</span></div>
+    <div><b>FM004</b><span><em>Intent displacement.</em> The user's goal is replaced by the model's bias.</span></div>
+    <div><b>FM005</b><span><em>Consensus collapse.</em> Several models mirror the same fabricated error.</span></div>
   </div>
 </section>
 
