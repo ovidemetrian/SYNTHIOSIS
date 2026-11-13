@@ -61,7 +61,8 @@ a.lane:active{background:rgba(61,123,255,.18)}
 .c-g{border-left:1.2cqw solid var(--gold)}
 
 .cover{align-items:center;justify-content:center;text-align:center;gap:2.4cqw}
-.cover img{width:46cqw;height:46cqw;border-radius:50%;object-fit:cover;box-shadow:0 0 8cqw rgba(61,123,255,.45)}
+.cover .seal{width:66cqw;height:66cqw;border-radius:4cqw;overflow:hidden;box-shadow:0 0 8cqw rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55)}
+.cover .seal img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
 .cover h1{font-size:10cqw;letter-spacing:.06em;color:var(--gold);font-family:var(--serif)}
 .cover .sub{font-family:var(--mono);font-size:3cqw;letter-spacing:.16em;color:var(--sky)}
 .cover .lum{font-family:var(--serif);font-style:italic;font-size:3.8cqw;color:#dfe6ff}
@@ -115,19 +116,19 @@ a.lane:active{background:rgba(61,123,255,.18)}
 #ovi-badge{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));z-index:9;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--yellow);border:1.5px solid var(--yellow);border-radius:999px;padding:7px 14px;background:rgba(5,11,36,.85);box-shadow:0 0 14px rgba(255,210,63,.45);cursor:grab;touch-action:none;user-select:none;animation:glow 3s ease-in-out infinite}
 @keyframes glow{50%{box-shadow:0 0 24px rgba(255,210,63,.75)}}
 @media (prefers-reduced-motion:reduce){#track{transition:none}.hint,.bl .ring,#ovi-badge{animation:none}}
-/* AURA: the shared GGI background. Two warm and cool fields of light, a gold sun low, slow rotating rays. */
-#aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#060a22;pointer-events:none}
-#aura .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:aura-drift 26s ease-in-out infinite alternate;will-change:transform}
-#aura .b1{width:95vmax;height:95vmax;left:-38vmax;top:-22vmax;background:radial-gradient(circle,rgba(255,92,28,.95) 0%,rgba(214,58,12,.7) 30%,rgba(140,30,8,.3) 52%,transparent 70%)}
-#aura .b2{width:95vmax;height:95vmax;right:-38vmax;top:-18vmax;background:radial-gradient(circle,rgba(52,120,255,.95) 0%,rgba(22,70,220,.7) 30%,rgba(10,36,140,.3) 52%,transparent 70%);animation-delay:-9s;animation-duration:31s}
-#aura .b3{width:70vmax;height:70vmax;left:50%;bottom:-46vmax;margin-left:-35vmax;background:radial-gradient(circle,rgba(255,206,60,.85) 0%,rgba(230,140,20,.45) 32%,transparent 66%);animation-delay:-17s;animation-duration:23s}
+/* AURA: the shared GGI background. Orange field left, blue field right, a dark seam between, a gold sun low, slow rotating rays. */
+#aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#05081c;pointer-events:none}
+#aura .blob{position:absolute;inset:-12%;animation:aura-drift 26s ease-in-out infinite alternate;will-change:transform}
+#aura .b1{background:radial-gradient(ellipse 58% 78% at 10% 40%,rgba(255,118,26,1) 0%,rgba(226,78,10,.75) 30%,rgba(130,40,6,.3) 55%,transparent 72%)}
+#aura .b2{background:radial-gradient(ellipse 58% 78% at 90% 38%,rgba(44,122,255,1) 0%,rgba(20,70,220,.75) 30%,rgba(10,32,130,.3) 55%,transparent 72%);animation-delay:-9s;animation-duration:31s}
+#aura .b3{background:radial-gradient(ellipse 42% 30% at 50% 106%,rgba(255,206,56,.95) 0%,rgba(236,150,20,.5) 40%,transparent 75%);animation-delay:-17s;animation-duration:23s}
 #aura .rays{position:absolute;left:50%;top:50%;width:200vmax;height:200vmax;margin:-100vmax 0 0 -100vmax;
-  background:repeating-conic-gradient(from 0deg,rgba(255,240,210,.16) 0deg 3deg,rgba(255,240,210,0) 7deg 15deg);
+  background:repeating-conic-gradient(from 0deg,rgba(255,240,210,.14) 0deg 3deg,rgba(255,240,210,0) 7deg 15deg);
   -webkit-mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);
           mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);
   animation:aura-spin 120s linear infinite;will-change:transform}
-#aura::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(3,5,18,.55) 100%)}
-@keyframes aura-drift{to{transform:translate(5vmax,4vmax) scale(1.1)}}
+#aura::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 50%,rgba(3,5,18,.5) 100%)}
+@keyframes aura-drift{to{transform:translate(3%,2%) scale(1.05)}}
 @keyframes aura-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
 </style>
@@ -141,9 +142,7 @@ a.lane:active{background:rgba(61,123,255,.18)}
 <div id="track">
 
 <section class="pg cover" data-t="Seal">
-  <img src="logo.png" alt="SYNTHIOSIS seal: a blue wave and a golden circuit spiral around one sun">
-  <h1>SYNTHIOSIS</h1>
-  <div class="sub">“SYNCHING THE THINKING” · GGI</div>
+  <div class="seal"><img src="logo.png" alt="SYNTHIOSIS seal: The renaissance of human cognition with AI. Creation through coexistence. A blue wave and a golden circuit spiral around one sun. Synching the thinking. SYNTHIOSIS. GGI, Genial Genuine Intelligence."></div>
   <div class="lum">Lumină, nu vrăjeală. Light, not trickery.</div>
   <div class="hint">SWIPE →</div>
 </section>
