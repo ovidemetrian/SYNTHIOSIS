@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SYNTHIOSIS — GGI Hub</title>
 <meta name="description" content="Creation through coexistence. The hub for GGI and the Ten Laws of AI. One idea per screen.">
-<meta name="theme-color" content="#0b1640">
+<meta name="theme-color" content="#060a22">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -20,7 +20,7 @@
   --S:360px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:radial-gradient(120% 80% at 50% 0%,#0d1a52 0%,var(--bg) 60%);color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:transparent;color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-tap-highlight-color:transparent}
 body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}
 a{color:inherit;text-decoration:none}
 
@@ -30,7 +30,7 @@ a{color:inherit;text-decoration:none}
 #count{color:var(--gold)}
 
 /* the stage: a fixed square that never changes shape */
-#stage{width:var(--S);height:var(--S);position:relative;overflow:hidden;border-radius:calc(var(--S)*.035);border:2px solid var(--line);background:linear-gradient(160deg,#0c1a50,#071034);container-type:size;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#stage{width:var(--S);height:var(--S);position:relative;overflow:hidden;border-radius:calc(var(--S)*.035);border:2px solid var(--line);background:rgba(6,12,40,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1.5vmax 5vmax rgba(0,0,0,.45);container-type:size;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 #track{display:flex;height:100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
 .pg{flex:0 0 100%;height:100%;padding:6cqw;display:flex;flex-direction:column;gap:3cqw;position:relative;overflow:hidden}
 .kick{font-family:var(--mono);font-size:2.8cqw;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
@@ -115,9 +115,25 @@ a.lane:active{background:rgba(61,123,255,.18)}
 #ovi-badge{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));z-index:9;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--yellow);border:1.5px solid var(--yellow);border-radius:999px;padding:7px 14px;background:rgba(5,11,36,.85);box-shadow:0 0 14px rgba(255,210,63,.45);cursor:grab;touch-action:none;user-select:none;animation:glow 3s ease-in-out infinite}
 @keyframes glow{50%{box-shadow:0 0 24px rgba(255,210,63,.75)}}
 @media (prefers-reduced-motion:reduce){#track{transition:none}.hint,.bl .ring,#ovi-badge{animation:none}}
+/* AURA: the shared GGI background. Two warm and cool fields of light, a gold sun low, slow rotating rays. */
+#aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#060a22;pointer-events:none}
+#aura .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:aura-drift 26s ease-in-out infinite alternate;will-change:transform}
+#aura .b1{width:95vmax;height:95vmax;left:-38vmax;top:-22vmax;background:radial-gradient(circle,rgba(255,92,28,.95) 0%,rgba(214,58,12,.7) 30%,rgba(140,30,8,.3) 52%,transparent 70%)}
+#aura .b2{width:95vmax;height:95vmax;right:-38vmax;top:-18vmax;background:radial-gradient(circle,rgba(52,120,255,.95) 0%,rgba(22,70,220,.7) 30%,rgba(10,36,140,.3) 52%,transparent 70%);animation-delay:-9s;animation-duration:31s}
+#aura .b3{width:70vmax;height:70vmax;left:50%;bottom:-46vmax;margin-left:-35vmax;background:radial-gradient(circle,rgba(255,206,60,.85) 0%,rgba(230,140,20,.45) 32%,transparent 66%);animation-delay:-17s;animation-duration:23s}
+#aura .rays{position:absolute;left:50%;top:50%;width:200vmax;height:200vmax;margin:-100vmax 0 0 -100vmax;
+  background:repeating-conic-gradient(from 0deg,rgba(255,240,210,.16) 0deg 3deg,rgba(255,240,210,0) 7deg 15deg);
+  -webkit-mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);
+          mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);
+  animation:aura-spin 120s linear infinite;will-change:transform}
+#aura::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(3,5,18,.55) 100%)}
+@keyframes aura-drift{to{transform:translate(5vmax,4vmax) scale(1.1)}}
+@keyframes aura-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
 </style>
 </head>
 <body>
+<div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
 
 <header id="bar"><b>SYNTHI<span>O</span>SIS</b><span id="ttl"></span><span id="count"></span></header>
 
