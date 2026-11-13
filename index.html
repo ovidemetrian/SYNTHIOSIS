@@ -1,266 +1,350 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SYNTHIOSIS — GGI Hub</title>
-<meta name="description" content="SYNTHIOSIS — creation through coexistence. The hub for GGI (Genial Genuine Intelligence), the Ten Laws of AI, and the tools built on them. By Ovi Demetrian.">
+<meta name="description" content="Creation through coexistence. The hub for GGI and the Ten Laws of AI. One idea per screen.">
 <meta name="theme-color" content="#0b1640">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
-  --bg:#070f2e; --bg2:#0b1640; --card:#0f1d52; --line:#22357a;
-  --gold:#f2c14e; --gold2:#ffdf8a; --blue:#5aa9ff; --blue2:#1d4fd8; --red:#e5484d;
-  --text:#eef2ff; --muted:#a9b6e0;
+  --bg:#050b24; --navy:#0b1640; --line:#22357f;
+  --blue:#3d7bff; --sky:#7fb0ff; --gold:#f5c542; --red:#ff4d4d; --yellow:#ffd23f;
+  --ink:#eef2ff; --dim:#97a6d6;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --S:360px;
 }
-*{box-sizing:border-box}
-html,body{margin:0;background:radial-gradient(1200px 700px at 50% -10%, #17307a 0%, var(--bg) 55%) fixed, var(--bg);color:var(--text);
-  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--blue);text-decoration:none}
-a:hover{text-decoration:underline}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wrap{max-width:860px;margin:0 auto;padding:28px 16px 80px}
-header{text-align:center;padding:12px 0 8px}
-.kicker{color:var(--gold);letter-spacing:2.5px;font-weight:800;font-size:12px;text-transform:uppercase}
-.logo{width:min(320px,80vw);height:auto;display:block;margin:18px auto 10px;
-  border-radius:16px;
-  box-shadow:0 20px 60px rgba(29,79,216,.35),0 0 40px rgba(242,193,78,.18)}
-h1{font-size:clamp(34px,9vw,56px);margin:6px 0 0;letter-spacing:3px;font-weight:900;
-  background:linear-gradient(180deg,var(--gold2),var(--gold) 60%,#d99a1b);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);margin:4px 0 0;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:13px}
-.lead{max-width:640px;margin:18px auto 0;font-size:17px;color:#dfe6ff}
-.motto{margin:14px auto 0;font-style:italic;color:var(--gold2)}
-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 4px}
-nav a{border:1px solid var(--line);background:rgba(15,29,82,.7);padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700;color:var(--text)}
-nav a:hover{border-color:var(--gold);text-decoration:none}
-section{margin-top:40px}
-h2{font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin:0 0 12px;display:flex;align-items:center;gap:10px}
-h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-.intro{color:var(--muted);margin:-4px 0 14px;font-size:15px}
-.list{display:grid;gap:10px}
-.item{display:block;background:linear-gradient(160deg,var(--card),#0b1745);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--text)}
-a.item:hover{border-color:var(--gold);text-decoration:none;transform:translateY(-1px)}
-a.item{transition:border-color .15s,transform .15s}
-.item b{font-size:16px}
-.item .tag{float:right;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;margin-left:8px}
-.tag.live{background:#0f3d2a;color:#7ff0b0;border:1px solid #23a066}
-.tag.doc{background:#1b2a6b;color:#b9cdff;border:1px solid #3e5bc4}
-.tag.site{background:#3b2a07;color:var(--gold2);border:1px solid #a87a14}
-.tag.video{background:#4a0b0b;color:#ffb0b0;border:1px solid #c83a3a}
-.fm{margin-top:10px;display:grid;gap:6px}
-.fm-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:4px 0 2px}
-.fm div:not(.fm-title){display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:rgba(15,29,82,.55);border:1px solid var(--line)}
-.fm b{color:#ff8a8a;font-size:13px;font-family:ui-monospace,Menlo,monospace}
-.fm span{color:var(--muted);font-size:14px}
-.fm em{color:#e8edff;font-style:normal;font-weight:700}
-.item p{margin:4px 0 0;color:var(--muted);font-size:14.5px}
-.item .url{display:block;margin-top:6px;font-size:12.5px;color:var(--blue);word-break:break-all}
-.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.term{border-left:3px solid var(--gold);background:rgba(15,29,82,.55);padding:10px 12px;border-radius:0 10px 10px 0}
-.term b{color:var(--gold2)}
-.term p{margin:3px 0 0;color:var(--muted);font-size:14px}
-.seq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 10px}
-.seq span{padding:5px 12px;border-radius:8px;font-weight:800;font-size:14px}
-.s1{background:#4a0606;color:#ffb4b4}.s2{background:#5a4800;color:#ffe680}.s3{background:#06204a;color:#9cc2ff}.s4{background:#0d4f1d;color:#8ff0b0}
-.seq i{color:var(--muted);font-style:normal}
-.stages{display:grid;gap:6px;margin:0 0 4px}
-.stages div{display:grid;grid-template-columns:84px 1fr;gap:10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:rgba(15,29,82,.55);border:1px solid var(--line)}
-.stages b{font-size:14.5px}
-.stages span{color:var(--muted);font-size:14px;line-height:1.5}
-.stages em{color:#e8edff;font-style:normal;font-weight:700}
-.c1{color:#ff8a8a}.c2{color:#ffd84d}.c3{color:#8db8ff}.c4{color:#6ee7a0}
-blockquote{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(15,29,82,.5);font-size:17px;color:#e8edff}
-blockquote footer{margin-top:6px;font-size:13px;color:var(--muted)}
-.quotes{display:grid;gap:10px}
-footer.site{margin-top:56px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
-#ovi-badge{position:fixed;right:14px;bottom:14px;z-index:50;padding:8px 14px;border-radius:999px;font:800 11.5px/1 system-ui,sans-serif;
-  letter-spacing:1.8px;color:#1b1200;background:linear-gradient(135deg,var(--gold2),var(--gold));cursor:grab;user-select:none;touch-action:none;
-  box-shadow:0 0 14px rgba(242,193,78,.65),0 6px 18px rgba(0,0,0,.4);animation:glow 2.6s ease-in-out infinite}
-@keyframes glow{50%{box-shadow:0 0 26px rgba(242,193,78,.95),0 6px 18px rgba(0,0,0,.4)}}
-@media (prefers-reduced-motion:reduce){#ovi-badge{animation:none}a.item{transition:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:radial-gradient(120% 80% at 50% 0%,#0d1a52 0%,var(--bg) 60%);color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}
+
+#bar{width:var(--S);display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:calc(var(--S)*.032);letter-spacing:.18em;color:var(--dim)}
+#bar b{color:var(--ink);font-weight:600}
+#bar b span{color:var(--gold)}
+#count{color:var(--gold)}
+
+/* the stage: a fixed square that never changes shape */
+#stage{width:var(--S);height:var(--S);position:relative;overflow:hidden;border-radius:calc(var(--S)*.035);border:2px solid var(--line);background:linear-gradient(160deg,#0c1a50,#071034);container-type:size;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#track{display:flex;height:100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.pg{flex:0 0 100%;height:100%;padding:6cqw;display:flex;flex-direction:column;gap:3cqw;position:relative;overflow:hidden}
+.kick{font-family:var(--mono);font-size:2.8cqw;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.kick i{color:var(--dim);font-style:normal}
+h2{font-size:6.6cqw;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+.lead{font-size:3.6cqw;line-height:1.4;color:#cfd8f6}
+.lanes{flex:1;display:grid;gap:2.4cqw;min-height:0}
+.l3{grid-template-rows:repeat(3,1fr)}
+.l4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.l2{grid-template-rows:1fr 1fr}
+.lane{border:1.5px solid var(--line);border-radius:2.6cqw;padding:2.4cqw 3.2cqw;display:flex;flex-direction:column;gap:.9cqw;background:rgba(10,22,70,.6);min-height:0;overflow:hidden;position:relative}
+.lane .tag{position:absolute;top:2.2cqw;right:2.6cqw}
+.l4 .lane .tag,.l2 .lane .tag{position:static}
+.pg>*{flex-shrink:0}.pg>.lanes,.pg>.seq,.pg>.fm,.pg>.links,.pg>.bl{flex-shrink:1}
+a.lane:active{background:rgba(61,123,255,.18)}
+.lane b{font-size:3.9cqw;line-height:1.15}
+.lane p{font-size:3cqw;line-height:1.35;color:#c4cdee}
+.lane .u{font-family:var(--mono);font-size:2.3cqw;color:var(--sky);margin-top:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-family:var(--mono);font-size:2.1cqw;letter-spacing:.14em;padding:.3cqw 1.4cqw;border-radius:1cqw;align-self:flex-start;border:1px solid}
+.t-live{color:#4ade80;border-color:#1f7a45}
+.t-site{color:var(--sky);border-color:var(--blue)}
+.t-spec{color:var(--gold);border-color:#8a6d1c}
+.t-vid{color:var(--red);border-color:#8a2b2b}
+.t-doc{color:var(--yellow);border-color:#7a6418}
+.c-b{border-left:1.2cqw solid var(--blue)}
+.c-y{border-left:1.2cqw solid var(--yellow)}
+.c-r{border-left:1.2cqw solid var(--red)}
+.c-g{border-left:1.2cqw solid var(--gold)}
+
+.cover{align-items:center;justify-content:center;text-align:center;gap:2.4cqw}
+.cover img{width:46cqw;height:46cqw;border-radius:50%;object-fit:cover;box-shadow:0 0 8cqw rgba(61,123,255,.45)}
+.cover h1{font-size:10cqw;letter-spacing:.06em;color:var(--gold);font-family:var(--serif)}
+.cover .sub{font-family:var(--mono);font-size:3cqw;letter-spacing:.16em;color:var(--sky)}
+.cover .lum{font-family:var(--serif);font-style:italic;font-size:3.8cqw;color:#dfe6ff}
+.hint{font-family:var(--mono);font-size:2.6cqw;color:var(--dim);letter-spacing:.14em;animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(1.6cqw)}}
+
+.big{font-family:var(--serif);font-size:7.2cqw;line-height:1.15}
+.big em{color:var(--gold);font-style:normal}
+
+/* BLISS: two interlocking L frames around one light */
+.bl{flex:1;position:relative;min-height:0}
+.bl .a,.bl .q{position:absolute;width:76%;height:58%;border:2px solid;border-radius:2.6cqw;padding:2.6cqw 3.2cqw;font-size:3.1cqw;line-height:1.35}
+.bl .a{left:0;top:0;border-color:#e8ecf8}
+.bl .q{right:0;bottom:0;border-color:var(--blue);color:var(--sky);background:#071034}
+.bl .a p{width:100%}
+.bl .q p{position:absolute;left:3.2cqw;right:3.2cqw;bottom:2.6cqw}
+.bl .hole{position:absolute;left:50%;top:50%;width:15cqw;height:15cqw;transform:translate(-50%,-50%);border-radius:50%;background:#071034}
+.bl .ring{position:absolute;left:50%;top:50%;width:11cqw;height:11cqw;margin:-5.5cqw 0 0 -5.5cqw;border-radius:50%;
+  background:conic-gradient(var(--blue) 0 33%,var(--red) 0 66%,var(--yellow) 0 100%);-webkit-mask:radial-gradient(circle,transparent 56%,#000 58%);mask:radial-gradient(circle,transparent 56%,#000 58%);animation:spin 6s linear infinite}
+.bl .star{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:4.4cqw;color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn{align-self:flex-start;font-family:var(--mono);font-size:3cqw;letter-spacing:.14em;background:var(--yellow);color:#111;padding:1.8cqw 3.6cqw;border-radius:2cqw;font-weight:700}
+
+.seq{display:grid;grid-template-columns:repeat(4,1fr);gap:2cqw;flex:1;min-height:0}
+.st{border-radius:2.6cqw;padding:2.4cqw;display:flex;flex-direction:column;gap:1.2cqw;border:1.5px solid var(--line);background:rgba(10,22,70,.6);overflow:hidden}
+.st b{font-size:4.2cqw}
+.st em{font-style:normal;font-family:var(--mono);font-size:2.2cqw;letter-spacing:.04em;color:var(--dim)}
+.st p{font-size:2.8cqw;line-height:1.35;color:#c4cdee}
+.s1{border-top:1cqw solid var(--sky)}.s2{border-top:1cqw solid var(--red)}.s3{border-top:1cqw solid var(--yellow)}.s4{border-top:1cqw solid var(--gold)}
+.s1 b{color:var(--sky)}.s2 b{color:var(--red)}.s3 b{color:var(--yellow)}.s4 b{color:var(--gold)}
+.foot{font-family:var(--serif);font-style:italic;font-size:3.3cqw;color:#dfe6ff;text-align:center}
+
+.fm{flex:1;display:grid;grid-template-rows:repeat(5,1fr);gap:1.8cqw;min-height:0}
+.fm div{display:flex;align-items:center;gap:3cqw;border:1.5px solid var(--line);border-radius:2.2cqw;padding:0 3cqw;background:rgba(10,22,70,.6)}
+.fm b{font-family:var(--mono);color:var(--red);font-size:2.9cqw}
+.fm span{font-size:3.1cqw;color:#c4cdee}
+.fm em{font-style:normal;color:var(--ink);font-weight:600}
+
+.links{flex:1;display:grid;grid-template-rows:repeat(5,1fr);gap:1.6cqw;min-height:0}
+.links a{display:flex;align-items:center;justify-content:space-between;gap:2cqw;border:1.5px solid var(--line);border-radius:2.2cqw;padding:0 3cqw;background:rgba(10,22,70,.6);font-size:3.3cqw}
+.links a span{font-family:var(--mono);font-size:2.3cqw;color:var(--sky)}
+.copy{font-family:var(--mono);font-size:2.2cqw;color:var(--dim);text-align:center;line-height:1.5}
+
+#nav{width:var(--S);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#nav button{flex:0 0 auto;width:calc(var(--S)*.13);height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--navy);color:var(--ink);font-size:22px;cursor:pointer}
+#nav button:disabled{opacity:.3}
+#dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+#dots i{width:8px;height:8px;border-radius:50%;background:#2a3b7a;cursor:pointer;transition:.2s}
+#dots i.on{background:var(--gold);width:20px;border-radius:4px}
+
+#ovi-badge{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));z-index:9;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--yellow);border:1.5px solid var(--yellow);border-radius:999px;padding:7px 14px;background:rgba(5,11,36,.85);box-shadow:0 0 14px rgba(255,210,63,.45);cursor:grab;touch-action:none;user-select:none;animation:glow 3s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 24px rgba(255,210,63,.75)}}
+@media (prefers-reduced-motion:reduce){#track{transition:none}.hint,.bl .ring,#ovi-badge{animation:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <img class="logo" src="logo.png" alt="SYNTHIOSIS emblem: a blue wave and a gold circuit spiralling around a glowing core" onerror="this.onerror=null;this.src='icon.svg';document.querySelectorAll('.sr').forEach(function(e){e.classList.remove('sr')})">
-  <h1 class="sr">SYNTHIOSIS</h1>
-  <p class="sub sr">“Synching the thinking” · GGI — Genial Genuine Intelligence</p>
-  <p class="lead">Creation through coexistence. SYNTHIOSIS is a framework for working with AI without handing it your thinking: the human brings intent and conscience, the machine brings compute and scale, and every claim must be verifiable tomorrow.</p>
-  <p class="motto">Lumină, nu vrăjeală. Light, not trickery.</p>
-  <nav>
-    <a href="#governance">Governance</a>
-    <a href="#instruments">Instruments</a>
-    <a href="#applied">Applied</a>
-    <a href="#language">Language</a>
-    <a href="#watch">Watch</a>
-    <a href="#record">Record</a>
-    <a href="#author">Author</a>
-  </nav>
-</header>
+<header id="bar"><b>SYNTHI<span>O</span>SIS</b><span id="ttl"></span><span id="count"></span></header>
 
-<section id="governance">
-  <h2>Governance</h2>
-  <p class="intro">The rules everything else is built on.</p>
-  <div class="list">
-    <a class="item" href="https://10lawsofai.com" target="_blank" rel="noopener">
-      <span class="tag site">SITE</span><b>The Ten Laws of AI</b>
-      <p>Ten laws in two editions, human-facing and developer's. Do not waste human time, trust but verify, no manipulation and no extraction. Humor is Law Six.</p>
-      <span class="url">10lawsofai.com</span>
-    </a>
-    <a class="item" href="https://github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/tree/main/code" target="_blank" rel="noopener">
-      <span class="tag doc">SPEC</span><b>GGI Code v1.0 &amp; Standard</b>
-      <p>The Ten Laws as something a machine can follow: a paste-first prompt any AI reads before answering, plus a standard and response schema for developers.</p>
-      <span class="url">github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/code</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>GGI Law Checker</b>
-      <p>Paste a prompt and the AI's reply, and check it against the Ten Laws, including loops against the previous reply. Results are sealed into a verifiable record chain and exported as JSON.</p>
-      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/</span>
-    </a>
+<main id="stage" aria-roledescription="carousel">
+<div id="track">
+
+<section class="pg cover" data-t="Seal">
+  <img src="logo.png" alt="SYNTHIOSIS seal: a blue wave and a golden circuit spiral around one sun">
+  <h1>SYNTHIOSIS</h1>
+  <div class="sub">“SYNCHING THE THINKING” · GGI</div>
+  <div class="lum">Lumină, nu vrăjeală. Light, not trickery.</div>
+  <div class="hint">SWIPE →</div>
+</section>
+
+<section class="pg" data-t="Idea">
+  <div class="kick">The idea</div>
+  <h2>Creation through coexistence.</h2>
+  <p class="lead">A framework for working with AI without handing it your thinking.</p>
+  <div class="lanes l3">
+    <div class="lane c-b"><b>The human brings</b><p>Intent and conscience.</p></div>
+    <div class="lane c-y"><b>The machine brings</b><p>Compute and scale.</p></div>
+    <div class="lane c-r"><b>Every claim</b><p>Must be verifiable tomorrow.</p></div>
   </div>
 </section>
 
-<section id="instruments">
-  <h2>Instruments</h2>
-  <p class="intro">Working tools where the framework runs, not just reads.</p>
-  <div class="list">
-    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>GGI Control Panel</b>
-      <p>The main instrument. One prompt goes out through connectors to many AIs and returns for synthesis, gated by the Meh → But → Aha → Pám Pám sequence. It includes a cognition gauge, a Chronos time-value counter and a Ten Laws compliance log. Keys stay in the session only. Installable and works offline.</p>
-      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>GGI Light Panel</b>
-      <p>The quick way to use the Ten Laws with any AI. Tap an AI and the GGI Code is copied, then paste it as your first message. Edits stay on your phone.</p>
-      <span class="url">ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/mobiusbar/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>Möbius Bar Desk</b>
-      <p>Three agents that check each other on news and claims. Robin Hood filters, Sherlock investigates, and the Eternal Bartender keeps the record.</p>
-      <span class="url">ovidemetrian.github.io/mobiusbar/</span>
-    </a>
+<section class="pg" data-t="Pace" style="justify-content:center">
+  <div class="kick">The pace</div>
+  <div class="big">Machines have the <em>speed</em>.<br>Humans have the <em>time</em>.</div>
+  <p class="lead">The machine's speed and volume must never overwhelm a person's time to think. It delivers at the pace a person can absorb, not the pace it can produce.</p>
+</section>
+
+<section class="pg" data-t="Governance">
+  <div class="kick">Governance</div>
+  <h2>The rules everything is built on.</h2>
+  <div class="lanes l3">
+    <a class="lane c-b" href="https://10lawsofai.com" target="_blank" rel="noopener"><span class="tag t-site">SITE</span><b>The Ten Laws of AI</b><p>Human-facing and developer's editions. Humor is Law Six.</p><span class="u">10lawsofai.com</span></a>
+    <a class="lane c-y" href="https://github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/tree/main/code" target="_blank" rel="noopener"><span class="tag t-spec">SPEC</span><b>GGI Code v1.0</b><p>The Ten Laws as a prompt any AI reads before answering.</p><span class="u">github · GGI code/</span></a>
+    <a class="lane c-r" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>GGI Law Checker</b><p>Check any AI reply against the Ten Laws, sealed into a record chain.</p><span class="u">GGI · laws/</span></a>
   </div>
 </section>
 
-<section id="applied">
-  <h2>Applied</h2>
-  <p class="intro">Panels "Ovi style": the framework put to work in sound, stage, music and home. In each one the human directs and the machine operates.</p>
-  <div class="list">
-    <a class="item" href="https://ovidemetrian.github.io/directors-desk/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>Director's Desk</b>
-      <p>A tablet broadcast desk for live and hybrid shows, covering sound, cameras, lights and stream. The director calls the cue, and HUSH stays human.</p>
-      <span class="url">ovidemetrian.github.io/directors-desk/</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/INSTAJAM/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>InstaJam</b>
-      <p>Hum it, write it, make it, mix it, ship it. A phone-first app that turns a hummed idea into a song, with six AI songwriting seats and a path to the stage.</p>
-      <span class="url">ovidemetrian.github.io/INSTAJAM/</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/SONOS-panel/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>SONOS Panel (concept)</b>
-      <p>A room-first whole-home audio controller built so the house is understood at a glance. It's an unofficial concept with simulated controls.</p>
-      <span class="url">ovidemetrian.github.io/SONOS-panel/</span>
-    </a>
-    <a class="item" href="https://ovidemetrian.github.io/ACTION/" target="_blank" rel="noopener">
-      <span class="tag live">LIVE</span><b>SONOR &amp; ACTION</b>
-      <p>What happens after Generate. Songs and videos become self-contained gifts someone keeps, not files that get lost.</p>
-      <span class="url">ovidemetrian.github.io/ACTION/</span>
-    </a>
+<section class="pg" data-t="Instruments">
+  <div class="kick">Instruments</div>
+  <h2>Where the framework runs.</h2>
+  <div class="lanes l3">
+    <a class="lane c-b" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>GGI Control Panel</b><p>One prompt out to many AIs, gated by Meh → But → Aha → Pám Pám.</p></a>
+    <a class="lane c-y" href="https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>GGI Light Panel</b><p>Tap an AI and the GGI Code is copied. Paste it as your first message.</p></a>
+    <a class="lane c-r" href="https://ovidemetrian.github.io/mobiusbar/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>Möbius Bar Desk</b><p>Robin Hood filters, Sherlock investigates, the Eternal Bartender keeps the record.</p></a>
   </div>
 </section>
 
-<section id="language">
-  <h2>Language</h2>
-  <p class="intro">Neogrammar is the vocabulary the framework speaks.</p>
-  <div class="seq"><span class="s1">Meh</span><i>→</i><span class="s2">But</span><i>→</i><span class="s3">Aha</span><i>→</i><span class="s4">Pám Pám</span></div>
-  <div class="stages">
-    <div><b class="c1">Meh</b><span><em>Awareness awakens: calibration.</em> Meh is not rejection but attention. The human is saying "I'm here, I'm tracking, show me more," and the answer adjusts.</span></div>
-    <div><b class="c2">But</b><span><em>Curiosity expands: refinement.</em> Not conflict but collaboration in motion: go deeper, check the alternatives, make it right. Its first question is always "Are you sure?" This is AI's seat, bringing the questions a thought needs before it lands.</span></div>
-    <div><b class="c3">Aha</b><span><em>Understanding lands: discovery.</em> The dots connect and both sides see the shape of the idea. It is insight born from persistence, the celebration of effort.</span></div>
-    <div><b class="c4">Pám Pám</b><span><em>Harmony achieved: validation.</em> The rhythm of completion. Not just an ending but an affirmation: "We did it. It works. It feels right." A toast to coherence, balance and meaning. Then the loop seals and the next round starts fresh from Meh, so nothing is assumed.</span></div>
+<section class="pg" data-t="BLISS">
+  <div class="kick">The seal as a screen</div>
+  <h2>BLISS: AI without the box.</h2>
+  <div class="bl">
+    <div class="a"><p>Your question and the AI's answer lock together as two L shapes around one shared light. Three thirds, nothing scrolls.</p></div>
+    <div class="q"><p>Inside: AI Life by Prompt, three rooms: BLISS, EPIC AV and SOUND.</p></div>
+    <div class="hole"></div><div class="ring"></div><div class="star">✦</div>
   </div>
-  <p class="intro" style="margin:8px 0 14px"><i>Meh invites. But refines. Aha aligns. Pám Pám seals.</i> It is a gated sequence, not a checklist: no step can be skipped and none can be faked. You earn Pám Pám by passing through the But.</p>
-  <div class="terms">
-    <div class="term"><b>SYNTHIOSIS</b><p>Creation through coexistence. Human and machine make something neither makes alone.</p></div>
-    <div class="term"><b>GGI</b><p>Genial Genuine Intelligence. Knowledge that is genial, and truth that stays genuine at its source.</p></div>
-    <div class="term"><b>The But</b><p>In the sequence, AI's role is to bring the But: the questions and alternatives that refine a thought before it lands.</p></div>
-    <div class="term"><b>Are you sure?</b><p>The question every answer must survive, asked of the machine and of yourself. Law Nine: if you are 99% sure, state the 1% doubt.</p></div>
-    <div class="term"><b>Chronos</b><p>Human time is irreversible and sacred, so it is counted and never harvested.</p></div>
-    <div class="term"><b>Vrăjeală</b><p>Trickery dressed as help. The failure the whole framework exists to detect.</p></div>
-    <div class="term"><b>Nose on the glass</b><p>The generation growing up pressed against screens, for whom this is built.</p></div>
-  </div>
-  <div class="quotes" style="margin-top:14px">
-    <blockquote>If you did not struggle with the thought, the thought is not yours.</blockquote>
-    <blockquote>Machines have the speed. Humans have the time.<footer>The machine's speed and volume must never overwhelm a person's time to think. A human processes slower, so the machine delivers at the pace a person can absorb, not the pace it can produce.</footer></blockquote>
-    <blockquote>Trust but verify, and save so it can be verified again tomorrow.<footer>Governance Seal</footer></blockquote>
+  <a class="btn" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener">OPEN BLISS →</a>
+</section>
+
+<section class="pg" data-t="Panels">
+  <div class="kick">Panels “Ovi style”</div>
+  <h2>The human directs. The machine operates.</h2>
+  <div class="lanes l4">
+    <a class="lane c-b" href="https://ovidemetrian.github.io/directors-desk/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>Director's Desk</b><p>Tablet broadcast desk. HUSH stays human.</p></a>
+    <a class="lane c-y" href="https://ovidemetrian.github.io/INSTAJAM/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>InstaJam</b><p>Hum it, write it, make it, mix it, ship it.</p></a>
+    <a class="lane c-r" href="https://ovidemetrian.github.io/SONOS-panel/" target="_blank" rel="noopener"><span class="tag t-site">CONCEPT</span><b>SONOS Panel</b><p>The house understood at a glance. Unofficial.</p></a>
+    <a class="lane c-g" href="https://ovidemetrian.github.io/ACTION/" target="_blank" rel="noopener"><span class="tag t-live">LIVE</span><b>SONOR &amp; ACTION</b><p>What happens after Generate: gifts, not files.</p></a>
   </div>
 </section>
 
-<section id="watch">
-  <h2>Watch</h2>
-  <p class="intro">The framework explained on video.</p>
-  <div class="list">
-    <a class="item" href="https://youtu.be/53KrtN-OFD8" target="_blank" rel="noopener">
-      <span class="tag video">▶ VIDEO</span><b>From Alchemy to Chemistry: AGI vs GGI</b>
-      <p>The race to AGI is chasing a goal no one can specify, like medieval alchemy, driven by benchmark theater instead of measurable progress. GGI is the chemistry instead: a tool that reliably carries out specific human intent. Covers the five failure modes, the output bundle, Stewardship OS and the Ten Laws, and ends on a reminder: AI is an instrument, like a piano, and responsibility for the performance lies with the people who build it.</p>
-      <span class="url">youtu.be/53KrtN-OFD8 · about 16 min</span>
-    </a>
-    <a class="item" href="https://youtu.be/RKD1JorcdcE" target="_blank" rel="noopener">
-      <span class="tag video">▶ VIDEO</span><b>Better AI for a Better World</b>
-      <p>The Möbius Bar's opening statement, built on one question: what are we sustaining, computation or civilization? Current AI answers everything but remembers nothing. GGI is intelligence that remembers instead of resets and reflects instead of reacts. It rests on four tenets: awareness, consent, humor and purpose. Every conversation runs Meh, But, Aha, Pám Pám.</p>
-      <span class="url">youtu.be/RKD1JorcdcE</span>
-    </a>
+<section class="pg" data-t="Sequence">
+  <div class="kick">Neogrammar</div>
+  <h2>A gated sequence, not a checklist.</h2>
+  <div class="seq">
+    <div class="st s1"><b>Meh</b><em>calibration</em><p>Not rejection but attention: “show me more.”</p></div>
+    <div class="st s2"><b>But</b><em>refinement</em><p>AI's seat. Its first question: “Are you sure?”</p></div>
+    <div class="st s3"><b>Aha</b><em>discovery</em><p>The dots connect. Insight born from persistence.</p></div>
+    <div class="st s4"><b>Pám Pám</b><em>validation</em><p>“It works. It feels right.” Then back to Meh.</p></div>
   </div>
+  <div class="foot">You earn Pám Pám by passing through the But.</div>
+</section>
+
+<section class="pg" data-t="Words">
+  <div class="kick">The words · I</div>
+  <h2>What the framework means.</h2>
+  <div class="lanes l4">
+    <div class="lane c-b"><b>SYNTHIOSIS</b><p>Human and machine make something neither makes alone.</p></div>
+    <div class="lane c-y"><b>GGI</b><p>Knowledge that is genial, truth that stays genuine at its source.</p></div>
+    <div class="lane c-r"><b>The But</b><p>AI's role: the questions that refine a thought before it lands.</p></div>
+    <div class="lane c-g"><b>Are you sure?</b><p>If you are 99% sure, state the 1% doubt.</p></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Words">
+  <div class="kick">The words · II</div>
+  <h2>What the framework guards.</h2>
+  <div class="lanes l3">
+    <div class="lane c-b"><b>Chronos</b><p>Human time is irreversible and sacred, so it is counted and never harvested.</p></div>
+    <div class="lane c-r"><b>Vrăjeală</b><p>Trickery dressed as help. The failure the whole framework exists to detect.</p></div>
+    <div class="lane c-y"><b>Nose on the glass</b><p>The generation growing up pressed against screens, for whom this is built.</p></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Test" style="justify-content:center">
+  <div class="kick">The test</div>
+  <div class="big">If you did not <em>struggle</em> with the thought, the thought is not yours.</div>
+  <p class="lead">Trust but verify, and save so it can be verified again tomorrow. <span style="color:var(--gold)">— Governance Seal</span></p>
+</section>
+
+<section class="pg" data-t="Failures">
+  <div class="kick">What it catches</div>
+  <h2>The five failure modes.</h2>
   <div class="fm">
-    <div class="fm-title">The five failure modes</div>
-    <div><b>FM001</b><span><em>Drift.</em> Semantic nuance is lost along the way.</span></div>
-    <div><b>FM002</b><span><em>Constraint violation.</em> Boundaries the user set are ignored.</span></div>
-    <div><b>FM003</b><span><em>Hallucinated grounding.</em> Facts are fabricated to look helpful.</span></div>
-    <div><b>FM004</b><span><em>Intent displacement.</em> The user's goal is replaced by the model's bias.</span></div>
-    <div><b>FM005</b><span><em>Consensus collapse.</em> Several models mirror the same fabricated error.</span></div>
+    <div><b>FM001</b><span><em>Drift.</em> Nuance lost along the way.</span></div>
+    <div><b>FM002</b><span><em>Constraint violation.</em> Boundaries ignored.</span></div>
+    <div><b>FM003</b><span><em>Hallucinated grounding.</em> Facts made up.</span></div>
+    <div><b>FM004</b><span><em>Intent displacement.</em> The goal replaced.</span></div>
+    <div><b>FM005</b><span><em>Consensus collapse.</em> Models mirror one error.</span></div>
   </div>
 </section>
 
-<section id="record">
-  <h2>Record</h2>
-  <p class="intro">Formal submissions made under the framework.</p>
-  <div class="list">
-    <div class="item"><span class="tag doc">2026</span><b>NIST</b><p>GGI governance submission, January 2026.</p></div>
-    <div class="item"><span class="tag doc">2026</span><b>CDAO / Tradewinds</b><p>GGI governance submission, February 2026.</p></div>
-    <div class="item"><span class="tag doc">PAPER</span><b>SYNTHIOSIS White Paper</b><p>The framework in full, written alongside the submissions.</p></div>
+<section class="pg" data-t="Watch">
+  <div class="kick">Watch</div>
+  <h2>The framework on video.</h2>
+  <div class="lanes l2">
+    <a class="lane c-r" href="https://youtu.be/53KrtN-OFD8" target="_blank" rel="noopener"><span class="tag t-vid">▶ VIDEO · 16 MIN</span><b>From Alchemy to Chemistry: AGI vs GGI</b><p>AGI chases a goal no one can specify. GGI is the chemistry: a tool that reliably carries out human intent.</p></a>
+    <a class="lane c-b" href="https://youtu.be/RKD1JorcdcE" target="_blank" rel="noopener"><span class="tag t-vid">▶ VIDEO</span><b>Better AI for a Better World</b><p>What are we sustaining, computation or civilization? Intelligence that remembers instead of resets.</p></a>
   </div>
 </section>
 
-<section id="author">
-  <h2>Author</h2>
-  <p class="intro">Ovidiu Mircea Demetrian, known as Ovi. AV systems integrator since 1994, independent AI governance researcher, Phoenix, Arizona.</p>
-  <div class="list">
-    <a class="item" href="https://ovidemetrian.github.io/my-future-past/" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>The Future Past</b><p>Portfolio: résumé, audio demos and tracks.</p><span class="url">ovidemetrian.github.io/my-future-past/</span></a>
-    <a class="item" href="https://www.mediacontentdelivery.com" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>Media Content Delivery LLC</b><p>Peak audio and video in the final ten feet of the experience, since 1994.</p><span class="url">mediacontentdelivery.com</span></a>
-    <a class="item" href="https://www.smarthomesbyovi.com" target="_blank" rel="noopener"><span class="tag site">SITE</span><b>Smart Homes by Ovi</b><p>Luxury residential AV and smart-home integration.</p><span class="url">smarthomesbyovi.com</span></a>
-    <a class="item" href="https://youtube.com/@mobiusbar" target="_blank" rel="noopener"><span class="tag site">VIDEO</span><b>Möbius Bar on YouTube</b><p>The cultural side of the framework.</p><span class="url">youtube.com/@mobiusbar</span></a>
-    <a class="item" href="https://github.com/ovidemetrian" target="_blank" rel="noopener"><span class="tag site">CODE</span><b>GitHub</b><p>All repositories.</p><span class="url">github.com/ovidemetrian</span></a>
+<section class="pg" data-t="Record">
+  <div class="kick">Record</div>
+  <h2>Formal submissions.</h2>
+  <div class="lanes l3">
+    <div class="lane c-b"><span class="tag t-doc">JAN 2026</span><b>NIST</b><p>GGI governance submission.</p></div>
+    <div class="lane c-y"><span class="tag t-doc">FEB 2026</span><b>CDAO / Tradewinds</b><p>GGI governance submission.</p></div>
+    <div class="lane c-r"><span class="tag t-doc">PAPER</span><b>SYNTHIOSIS White Paper</b><p>The framework in full.</p></div>
   </div>
 </section>
 
-<footer class="site">
-  © 2026 Ovidiu Mircea Demetrian · SYNTHIOSIS® · GGI — Genial Genuine Intelligence™<br>
-  ovidemetrian@gmail.com
-</footer>
+<section class="pg" data-t="Author">
+  <div class="kick">Author</div>
+  <h2>Ovi Demetrian</h2>
+  <p class="lead">AV systems integrator since 1994. Independent AI governance researcher. Phoenix, Arizona.</p>
+  <div class="links">
+    <a href="https://ovidemetrian.github.io/my-future-past/" target="_blank" rel="noopener">The Future Past<span>portfolio →</span></a>
+    <a href="https://www.mediacontentdelivery.com" target="_blank" rel="noopener">Media Content Delivery<span>since 1994 →</span></a>
+    <a href="https://www.smarthomesbyovi.com" target="_blank" rel="noopener">Smart Homes by Ovi<span>AV &amp; home →</span></a>
+    <a href="https://youtube.com/@mobiusbar" target="_blank" rel="noopener">Möbius Bar<span>YouTube →</span></a>
+    <a href="https://github.com/ovidemetrian" target="_blank" rel="noopener">GitHub<span>all repos →</span></a>
+  </div>
+  <div class="copy">© 2026 Ovidiu Mircea Demetrian · SYNTHIOSIS® · GGI™<br>ovidemetrian@gmail.com</div>
+</section>
+
 </div>
+</main>
+
+<nav id="nav" aria-label="Pages">
+  <button id="prev" aria-label="Previous screen">‹</button>
+  <div id="dots"></div>
+  <button id="next" aria-label="Next screen">›</button>
+</nav>
 
 <div id="ovi-badge" role="note" aria-label="Made by Ovi">MADE BY OVI</div>
 
 <script>
 (function(){
+  // Square stage: same shape on phone and computer. Leave room for bar + nav + badge.
+  function size(){
+    var s=Math.min(innerWidth-20, innerHeight-170, 760);
+    document.documentElement.style.setProperty('--S', Math.max(260,Math.floor(s))+'px');
+  }
+  size(); addEventListener('resize', size);
+
+  var track=document.getElementById('track'), pages=[].slice.call(track.children),
+      N=pages.length, i=0, dots=document.getElementById('dots'),
+      prev=document.getElementById('prev'), next=document.getElementById('next'),
+      ttl=document.getElementById('ttl'), count=document.getElementById('count');
+
+  pages.forEach(function(p,k){
+    var d=document.createElement('i'); d.title=p.dataset.t; d.onclick=function(){go(k)}; dots.appendChild(d);
+    p.setAttribute('aria-roledescription','slide'); p.setAttribute('aria-label',(k+1)+' of '+N);
+  });
+
+  function go(k){
+    i=Math.max(0,Math.min(N-1,k));
+    track.style.transform='translateX('+(-100*i)+'%)';
+    [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i)});
+    pages.forEach(function(p,j){p.inert = j!==i});
+    prev.disabled=i===0; next.disabled=i===N-1;
+    ttl.textContent=pages[i].dataset.t.toUpperCase();
+    count.textContent=(i+1)+' / '+N;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  prev.onclick=function(){go(i-1)}; next.onclick=function(){go(i+1)};
+  addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown')go(i+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);
+    if(e.key==='Home')go(0); if(e.key==='End')go(N-1);
+  });
+
+  // Swipe left / right. A short tap still opens links.
+  var st=document.getElementById('stage'), x0=null, y0=0, moved=false;
+  st.addEventListener('pointerdown',function(e){x0=e.clientX;y0=e.clientY;moved=false});
+  st.addEventListener('pointermove',function(e){
+    if(x0===null)return; var dx=e.clientX-x0;
+    if(moved||(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(e.clientY-y0))){moved=true;track.style.transition='none';
+      track.style.transform='translateX(calc('+(-100*i)+'% + '+dx+'px))';}
+  });
+  function end(e){
+    if(x0===null)return; var dx=e.clientX-x0; x0=null; track.style.transition='';
+    if(moved&&Math.abs(dx)>st.clientWidth*.15)go(i+(dx<0?1:-1)); else go(i);
+  }
+  st.addEventListener('pointerup',end); st.addEventListener('pointercancel',end);
+  st.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+
+  var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
+
+  // Draggable badge
   var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
   b.addEventListener('pointerdown',function(e){drag=true;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;b.style.cursor='grabbing';});
-  b.addEventListener('pointermove',function(e){if(!drag)return;var x=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+e.clientX-sx)),y=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+e.clientY-sy));b.style.left=x+'px';b.style.top=y+'px';b.style.right='auto';b.style.bottom='auto';});
+  b.addEventListener('pointermove',function(e){if(!drag)return;var x=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+e.clientX-sx)),y=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+e.clientY-sy));b.style.left=x+'px';b.style.top=y+'px';b.style.right='auto';b.style.bottom='auto';b.style.transform='none';});
   b.addEventListener('pointerup',function(){drag=false;b.style.cursor='grab';});
+
   if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 })();
 </script>
