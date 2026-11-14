@@ -138,8 +138,8 @@ a.lane:active{background:rgba(61,123,255,.18)}
 body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-badge{opacity:0}
 #splash{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin;background:transparent;transition:opacity .9s ease,visibility .9s;cursor:pointer}
 #splash.out{opacity:0;visibility:hidden}
-#splash .seal{width:min(86vw,74vh);height:min(86vw,74vh);border-radius:3vmin;overflow:hidden;box-shadow:0 0 10vmin rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55);opacity:0;transform:scale(.94);transition:opacity 1.1s ease,transform 1.4s cubic-bezier(.2,.8,.2,1)}
-#splash.ready .seal{opacity:1;transform:none}
+#splash .seal{width:var(--SP,86vw);height:var(--SP,86vw);border-radius:2vw;overflow:hidden;box-shadow:0 0 10vw rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55);opacity:0;transition:opacity 1.2s ease}
+#splash.ready .seal{opacity:1}
 #splash .wait{position:absolute;left:50%;top:50%;width:4vmin;height:4vmin;margin:-2vmin 0 0 -2vmin;border-radius:50%;background:radial-gradient(circle,#fff6c8,#f5a623 60%,transparent 72%);box-shadow:0 0 6vmin rgba(255,190,60,.8);animation:wait 1.6s ease-in-out infinite;transition:opacity .6s}
 #splash.ready .wait{opacity:0}
 @keyframes wait{50%{transform:scale(1.5);opacity:.6}}
@@ -324,11 +324,20 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
 <script>
 (function(){
   // Square stage: same shape on phone and computer. Leave room for bar + nav + badge.
-  function size(){
-    var s=Math.min(innerWidth-20, innerHeight-170, 760);
+  // Sizes are set once, then only when the screen really changes (rotation, window resize),
+  // not on the small height jitters a phone makes while the app opens.
+  var lastW=0,lastH=0,rt=null;
+  function size(force){
+    var w=innerWidth,h=innerHeight;
+    if(!force && Math.abs(w-lastW)<2 && Math.abs(h-lastH)<120) return;
+    lastW=w; lastH=h;
+    var s=Math.min(w-20, h-170, 760);
     document.documentElement.style.setProperty('--S', Math.max(260,Math.floor(s))+'px');
+    document.documentElement.style.setProperty('--SP', Math.floor(Math.min(w*.86, h*.74, 900))+'px');
   }
-  size(); addEventListener('resize', size);
+  size(true);
+  addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){size(false)},200); });
+  addEventListener('orientationchange', function(){ setTimeout(function(){size(true)},300); });
 
   var track=document.getElementById('track'), pages=[].slice.call(track.children),
       N=pages.length, i=0, dots=document.getElementById('dots'),
