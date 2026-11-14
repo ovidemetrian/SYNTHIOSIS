@@ -62,9 +62,6 @@ a.lane:active{background:rgba(61,123,255,.18)}
 
 .cover{align-items:center;justify-content:center;text-align:center;gap:2.4cqw}
 .cover .seal{width:66cqw;height:66cqw;border-radius:4cqw;overflow:hidden;box-shadow:0 0 8cqw rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55)}
-.cover .seal img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
-.cover .seal.live{border-radius:0;box-shadow:none;overflow:visible}
-.cover .seal.live img{transform:none;object-fit:contain}
 .cover h1{font-size:10cqw;letter-spacing:.06em;color:var(--gold);font-family:var(--serif)}
 .cover .sub{font-family:var(--mono);font-size:3cqw;letter-spacing:.16em;color:var(--sky)}
 .cover .lum{font-family:var(--serif);font-style:italic;font-size:3.8cqw;color:#dfe6ff}
@@ -145,19 +142,38 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
 @keyframes wait{50%{transform:scale(1.5);opacity:.6}}
 #splash small{opacity:0;transition:opacity 1s .6s}
 #splash.ready small{opacity:1}
-#splash .seal img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
-#splash .seal.live{border-radius:0;box-shadow:none;overflow:visible}
-#splash .seal.live img{transform:none;object-fit:contain}
 #splash .seal{position:relative}
-#splash #spanim{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
-#splash #spanim.on{opacity:1}
 #splash small{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--dim)}
 @media (prefers-reduced-motion:reduce){#splash .seal,#splash .wait{transition:none;animation:none}}
+/* LIVE SEAL: the animated seal as light layers. Only transforms and opacity move, so the phone's graphics chip does the work. */
+.ls{position:relative;width:100%;height:100%;overflow:hidden;border-radius:2.2%;contain:strict}
+.ls>*{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ls .ls-rays{transform-origin:50% 41.8%;animation:ls-spin 240s linear infinite reverse;will-change:transform}
+.ls .ls-ring{transform-origin:50% 41.8%;animation:ls-spin 200s linear infinite;will-change:transform}
+.ls .ls-glow{inset:auto;left:49.65%;top:40.88%;width:4.3%;height:4.3%;margin:-2.15% 0 0 -2.15%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,248,208,.9),rgba(255,176,0,0) 70%);animation:ls-beat 6s ease-in-out infinite;will-change:opacity}
+.ls .ls-rip{inset:auto;left:49.65%;top:40.88%;width:.76%;height:.76%;margin:-.38% 0 0 -.38%;border-radius:50%;border:1px solid #fff1c4;
+  box-sizing:border-box;opacity:0;animation:ls-drop 8s cubic-bezier(.2,.6,.3,1) infinite}
+.ls .ls-sheen,.ls .ls-glint{mix-blend-mode:screen;background-repeat:no-repeat;will-change:background-position}
+.ls .ls-sheen{-webkit-mask:url(seal-l-title.webp) 0 0/100% 100%;mask:url(seal-l-title.webp) 0 0/100% 100%;
+  background-image:linear-gradient(110deg,transparent 44%,rgba(255,251,232,.55) 48.5%,#fff 50%,rgba(255,251,232,.55) 51.5%,transparent 56%);
+  background-size:300% 100%;animation:ls-sheen 6s cubic-bezier(.45,0,.55,1) infinite}
+.ls .ls-glint{-webkit-mask:url(seal-l-frame.webp) 0 0/100% 100%;mask:url(seal-l-frame.webp) 0 0/100% 100%;
+  background-image:linear-gradient(90deg,transparent 45%,rgba(255,254,245,.95) 50%,transparent 55%);
+  background-size:300% 100%;animation:ls-glint 7s linear infinite}
+@keyframes ls-spin{to{transform:rotate(360deg)}}
+@keyframes ls-beat{0%,100%{opacity:.35}50%{opacity:.85}}
+@keyframes ls-drop{0%{width:.76%;height:.76%;margin:-.38% 0 0 -.38%;opacity:0}8%{opacity:.95}100%{width:14%;height:14%;margin:-7% 0 0 -7%;opacity:0}}
+@keyframes ls-sheen{0%{background-position:100% 0}55%,100%{background-position:0 0}}
+@keyframes ls-glint{0%{background-position:100% 0}100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.ls *{animation:none!important}}
+body.splashing .cover .ls *{animation-play-state:paused}
+#splash .seal,.cover .seal{border-radius:0;box-shadow:none;overflow:visible}
 </style>
 </head>
 <body class="splashing">
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
-<div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><i class="wait"></i><div class="seal"><img id="spimg" alt="SYNTHIOSIS seal"><img id="spanim" alt=""></div><small>TAP TO ENTER</small></div>
+<div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><i class="wait"></i><div class="seal"><div class="ls" role="img" aria-label="SYNTHIOSIS seal"><img src="seal-l-bg.webp" alt=""><img class="ls-rays" src="seal-l-rays.webp" alt=""><img src="seal-l-art.webp" alt=""><i class="ls-glow"></i><i class="ls-rip" style="animation-delay:-0.00s"></i><i class="ls-rip" style="animation-delay:-1.14s"></i><i class="ls-rip" style="animation-delay:-2.29s"></i><i class="ls-rip" style="animation-delay:-3.43s"></i><i class="ls-rip" style="animation-delay:-4.57s"></i><i class="ls-rip" style="animation-delay:-5.71s"></i><i class="ls-rip" style="animation-delay:-6.86s"></i><img class="ls-ring" src="seal-l-ring.webp" alt=""><i class="ls-sheen"></i><i class="ls-glint"></i></div></div><small>TAP TO ENTER</small></div>
 
 <header id="bar"><b>SYNTHI<span>O</span>SIS</b><span id="ttl"></span><span id="count"></span></header>
 
@@ -165,7 +181,7 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
 <div id="track">
 
 <section class="pg cover" data-t="Seal">
-  <div class="seal"><img src="seal.svg" onload="if(/svg$/.test(this.src))this.parentNode.classList.add('live')" onerror="this.onerror=null;this.src='logo.png'" alt="SYNTHIOSIS seal: The renaissance of human cognition with AI. Creation through coexistence. A blue wave and a golden circuit spiral around one sun. Synching the thinking. SYNTHIOSIS. GGI, Genial Genuine Intelligence."></div>
+  <div class="seal"><div class="ls" role="img" aria-label="SYNTHIOSIS seal: The renaissance of human cognition with AI. Creation through coexistence. A blue wave and a golden circuit spiral around one sun. Synching the thinking. SYNTHIOSIS. GGI, Genial Genuine Intelligence."><img src="seal-l-bg.webp" alt=""><img class="ls-rays" src="seal-l-rays.webp" alt=""><img src="seal-l-art.webp" alt=""><i class="ls-glow"></i><i class="ls-rip" style="animation-delay:-0.00s"></i><i class="ls-rip" style="animation-delay:-1.14s"></i><i class="ls-rip" style="animation-delay:-2.29s"></i><i class="ls-rip" style="animation-delay:-3.43s"></i><i class="ls-rip" style="animation-delay:-4.57s"></i><i class="ls-rip" style="animation-delay:-5.71s"></i><i class="ls-rip" style="animation-delay:-6.86s"></i><img class="ls-ring" src="seal-l-ring.webp" alt=""><i class="ls-sheen"></i><i class="ls-glint"></i></div></div>
   <div class="lum">Lumină, nu vrăjeală. Light, not trickery.</div>
   <div class="hint">SWIPE →</div>
 </section>
@@ -391,22 +407,18 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
   function enter(){if(!sp.classList.contains('out')){sp.classList.add('out');document.body.classList.remove('splashing');setTimeout(function(){sp.remove()},1000);}}
   sp.addEventListener('click',enter);
   addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')enter();});
-  // The still seal appears at once (light file); the animated seal takes over in place when it is ready.
-  var spimg=document.getElementById('spimg'), hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500, timer=null;
-  function reveal(){ spimg.parentNode.classList.add('live'); requestAnimationFrame(function(){sp.classList.add('ready');}); }
+  // The seal is built from light layers; it appears once its main layer is ready, then holds.
+  var hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500, timer=null;
   function holdThenEnter(){ if(!timer) timer=setTimeout(enter,hold); }
-  spimg.onload=reveal;
-  spimg.onerror=function(){ spimg.onerror=null; spimg.src='seal.svg'; };
-  spimg.src='seal-still.jpg';
-  // The animated seal is laid on top of the still one and fades in only once it is fully drawn,
-  // so there is never a blank frame between the two.
-  var anim=document.getElementById('spanim');
-  anim.onload=function(){
-    var go=function(){ reveal(); anim.classList.add('on'); holdThenEnter(); };
-    if(anim.decode){ anim.decode().then(go,go); } else { go(); }
+  function ready(){ requestAnimationFrame(function(){sp.classList.add('ready');}); holdThenEnter(); }
+  var probe=new Image();
+  probe.onload=function(){ (probe.decode?probe.decode():Promise.resolve()).then(ready,ready); };
+  probe.onerror=function(){
+    // layers not uploaded yet: fall back to the still seal in both places
+    [].forEach.call(document.querySelectorAll('.seal'),function(s){ s.innerHTML='<img src="seal-still.jpg" alt="SYNTHIOSIS seal" style="display:block;width:100%;height:100%">'; });
+    ready();
   };
-  anim.onerror=holdThenEnter;
-  anim.src='seal.svg';
+  probe.src='seal-l-art.webp';
   setTimeout(holdThenEnter,7000);
 
   // Draggable badge
