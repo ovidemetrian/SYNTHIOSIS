@@ -7,7 +7,7 @@
 <meta name="description" content="Creation through coexistence. The hub for GGI and the Ten Laws of AI. One idea per screen.">
 <meta name="theme-color" content="#060a22">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{
@@ -379,15 +379,18 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
   function enter(){if(!sp.classList.contains('out')){sp.classList.add('out');document.body.classList.remove('splashing');setTimeout(function(){sp.remove()},1000);}}
   sp.addEventListener('click',enter);
   addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')enter();});
-  // Wait for the animated seal to arrive, then show it whole and hold it. Never wait more than 8 s.
-  var spimg=document.getElementById('spimg'), shown=false, hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500;
-  function show(src,live){
-    if(shown)return; shown=true;
-    spimg.onload=function(){ if(live)spimg.parentNode.classList.add('live'); requestAnimationFrame(function(){sp.classList.add('ready');}); setTimeout(enter,hold); };
-    spimg.src=src;
-  }
-  var pre=new Image(); pre.onload=function(){show('seal.svg',true)}; pre.onerror=function(){show('logo.png',false)}; pre.src='seal.svg';
-  setTimeout(function(){show('logo.png',false)},8000);
+  // The still seal appears at once (light file); the animated seal takes over in place when it is ready.
+  var spimg=document.getElementById('spimg'), hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500, timer=null;
+  function reveal(){ spimg.parentNode.classList.add('live'); requestAnimationFrame(function(){sp.classList.add('ready');}); }
+  function holdThenEnter(){ if(!timer) timer=setTimeout(enter,hold); }
+  spimg.onload=reveal;
+  spimg.onerror=function(){ spimg.onerror=null; spimg.src='seal.svg'; };
+  spimg.src='seal-still.jpg';
+  var anim=new Image();
+  anim.onload=function(){ spimg.onload=function(){reveal();holdThenEnter();}; spimg.src='seal.svg'; };
+  anim.onerror=holdThenEnter;
+  anim.src='seal.svg';
+  setTimeout(holdThenEnter,7000);
 
   // Draggable badge
   var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
