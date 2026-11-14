@@ -138,18 +138,23 @@ a.lane:active{background:rgba(61,123,255,.18)}
 body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-badge{opacity:0}
 #splash{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin;background:transparent;transition:opacity .9s ease,visibility .9s;cursor:pointer}
 #splash.out{opacity:0;visibility:hidden}
-#splash .seal{width:min(86vw,74vh);height:min(86vw,74vh);border-radius:3vmin;overflow:hidden;box-shadow:0 0 10vmin rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55);animation:splash-in 1.2s ease-out both}
+#splash .seal{width:min(86vw,74vh);height:min(86vw,74vh);border-radius:3vmin;overflow:hidden;box-shadow:0 0 10vmin rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55);opacity:0;transform:scale(.94);transition:opacity 1.1s ease,transform 1.4s cubic-bezier(.2,.8,.2,1)}
+#splash.ready .seal{opacity:1;transform:none}
+#splash .wait{position:absolute;left:50%;top:50%;width:4vmin;height:4vmin;margin:-2vmin 0 0 -2vmin;border-radius:50%;background:radial-gradient(circle,#fff6c8,#f5a623 60%,transparent 72%);box-shadow:0 0 6vmin rgba(255,190,60,.8);animation:wait 1.6s ease-in-out infinite;transition:opacity .6s}
+#splash.ready .wait{opacity:0}
+@keyframes wait{50%{transform:scale(1.5);opacity:.6}}
+#splash small{opacity:0;transition:opacity 1s .6s}
+#splash.ready small{opacity:1}
 #splash .seal img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
 #splash .seal.live{border-radius:0;box-shadow:none;overflow:visible}
 #splash .seal.live img{transform:none;object-fit:contain}
 #splash small{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--dim)}
-@keyframes splash-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){#splash .seal{animation:none}}
+@media (prefers-reduced-motion:reduce){#splash .seal,#splash .wait{transition:none;animation:none}}
 </style>
 </head>
 <body class="splashing">
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
-<div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><div class="seal"><img src="seal.svg" onload="if(/svg$/.test(this.src))this.parentNode.classList.add('live')" onerror="this.onerror=null;this.src='logo.png'" alt="SYNTHIOSIS seal"></div><small>TAP TO ENTER</small></div>
+<div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><i class="wait"></i><div class="seal"><img id="spimg" alt="SYNTHIOSIS seal"></div><small>TAP TO ENTER</small></div>
 
 <header id="bar"><b>SYNTHI<span>O</span>SIS</b><span id="ttl"></span><span id="count"></span></header>
 
@@ -374,7 +379,15 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
   function enter(){if(!sp.classList.contains('out')){sp.classList.add('out');document.body.classList.remove('splashing');setTimeout(function(){sp.remove()},1000);}}
   sp.addEventListener('click',enter);
   addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')enter();});
-  setTimeout(enter, matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500);
+  // Wait for the animated seal to arrive, then show it whole and hold it. Never wait more than 8 s.
+  var spimg=document.getElementById('spimg'), shown=false, hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500;
+  function show(src,live){
+    if(shown)return; shown=true;
+    spimg.onload=function(){ if(live)spimg.parentNode.classList.add('live'); requestAnimationFrame(function(){sp.classList.add('ready');}); setTimeout(enter,hold); };
+    spimg.src=src;
+  }
+  var pre=new Image(); pre.onload=function(){show('seal.svg',true)}; pre.onerror=function(){show('logo.png',false)}; pre.src='seal.svg';
+  setTimeout(function(){show('logo.png',false)},8000);
 
   // Draggable badge
   var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
