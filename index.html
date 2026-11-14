@@ -169,6 +169,22 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
 @media (prefers-reduced-motion:reduce){.ls *{animation:none!important}}
 body.splashing .cover .ls *{animation-play-state:paused}
 #splash .seal,.cover .seal{border-radius:0;box-shadow:none;overflow:visible}
+/* first page: the seal fills the whole square, edge to edge */
+.pg.full{padding:0;gap:0}
+.pg.full .seal{width:100%;height:100%}
+.pg.full .lum,.pg.full .hint{display:none}
+/* sideways: arrows beside the square, dots under it, so the square gets the full height */
+body.land{display:grid;grid-template-columns:auto var(--S) auto;grid-template-rows:auto var(--S) auto;column-gap:18px;row-gap:6px;align-content:center;justify-content:center}
+body.land #bar{grid-column:2;grid-row:1;font-size:11px}
+body.land #stage{grid-column:2;grid-row:2}
+body.land #nav{display:contents}
+body.land #prev{grid-column:1;grid-row:2;align-self:center}
+body.land #next{grid-column:3;grid-row:2;align-self:center}
+body.land #dots{grid-column:2;grid-row:3;flex-wrap:nowrap;gap:5px}
+body.land #dots i{width:7px;height:7px}
+body.land #dots i.on{width:16px}
+body.land #nav button{width:52px;height:52px}
+body.land #ovi-badge{left:auto;right:calc(10px + env(safe-area-inset-right));transform:none;font-size:10px;padding:6px 12px}
 </style>
 </head>
 <body class="splashing">
@@ -180,7 +196,7 @@ body.splashing .cover .ls *{animation-play-state:paused}
 <main id="stage" aria-roledescription="carousel">
 <div id="track">
 
-<section class="pg cover" data-t="Seal">
+<section class="pg cover full" data-t="Seal">
   <div class="seal"><div class="ls" role="img" aria-label="SYNTHIOSIS seal: The renaissance of human cognition with AI. Creation through coexistence. A blue wave and a golden circuit spiral around one sun. Synching the thinking. SYNTHIOSIS. GGI, Genial Genuine Intelligence."><img src="seal-l-bg.webp" alt=""><img class="ls-rays" src="seal-l-rays.webp" alt=""><img src="seal-l-art.webp" alt=""><i class="ls-glow"></i><i class="ls-rip" style="animation-delay:-0.00s"></i><i class="ls-rip" style="animation-delay:-1.14s"></i><i class="ls-rip" style="animation-delay:-2.29s"></i><i class="ls-rip" style="animation-delay:-3.43s"></i><i class="ls-rip" style="animation-delay:-4.57s"></i><i class="ls-rip" style="animation-delay:-5.71s"></i><i class="ls-rip" style="animation-delay:-6.86s"></i><img class="ls-ring" src="seal-l-ring.webp" alt=""><i class="ls-sheen"></i><i class="ls-glint"></i></div></div>
   <div class="lum">Lumină, nu vrăjeală. Light, not trickery.</div>
   <div class="hint">SWIPE →</div>
@@ -350,8 +366,10 @@ body.splashing .cover .ls *{animation-play-state:paused}
     var w=innerWidth,h=innerHeight;
     if(!force && Math.abs(w-lastW)<2 && Math.abs(h-lastH)<120) return;
     lastW=w; lastH=h;
-    var s=Math.min(w-20, h-170, 760);
-    document.documentElement.style.setProperty('--S', Math.max(260,Math.floor(s))+'px');
+    var land=w>h*1.15;
+    document.body.classList.toggle('land',land);
+    var s=land?Math.min(h-72, w-200, 900):Math.min(w-20, h-170, 760);
+    document.documentElement.style.setProperty('--S', Math.max(240,Math.floor(s))+'px');
     document.documentElement.style.setProperty('--SP', Math.floor(Math.min(w*.86, h*.74, 900))+'px');
   }
   size(true);
