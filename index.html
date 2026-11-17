@@ -51,7 +51,7 @@ h2{font-size:6.6cqw;line-height:1.08;font-weight:700;letter-spacing:-.01em}
 .lane .tag{position:absolute;top:2.2cqw;right:5cqw}
 .l4 .lane .tag,.l2 .lane .tag{position:static}
 .l4 .lane p{font-size:3.1cqw;line-height:1.3}
-.pg>*{flex-shrink:0}.pg>.lanes,.pg>.seq,.pg>.fm,.pg>.links,.pg>.bl{flex-shrink:1}
+.pg>*{flex-shrink:0}.pg>.lanes,.pg>.seq,.pg>.fm,.pg>.links,.pg>.bz{flex-shrink:1}
 a.lane:active{background:rgba(200,206,216,.26)}
 /* CLICKABLE: anything you can tap ends in a soft arrow point on the right, an invitation, not a sign */
 a.lane,.links a{--ar:3.2cqw;position:relative;border-top-right-radius:0;border-bottom-right-radius:0;border-right:0;padding-right:calc(var(--ar) + 3cqw);
@@ -85,18 +85,26 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 .big{font-family:var(--serif);font-size:7.2cqw;line-height:1.15}
 .big em{color:var(--gold);font-style:normal}
 
-/* BLISS: two interlocking L frames around one light */
-.bl{flex:1;position:relative;min-height:0}
-.bl .a,.bl .q{position:absolute;width:76%;height:58%;border:2px solid;border-radius:2.6cqw;padding:2.6cqw 3.2cqw;font-size:3.1cqw;line-height:1.35}
-.bl .a{left:0;top:0;border-color:#e8ecf8}
-.bl .q{right:0;bottom:0;border-color:var(--blue);color:var(--sky);background:#071034}
-.bl .a p{width:100%}
-.bl .q p{position:absolute;left:3.2cqw;right:3.2cqw;bottom:2.6cqw}
-.bl .hole{position:absolute;left:50%;top:50%;width:15cqw;height:15cqw;transform:translate(-50%,-50%);border-radius:50%;background:#071034}
-.bl .ring{position:absolute;left:50%;top:50%;width:11cqw;height:11cqw;margin:-5.5cqw 0 0 -5.5cqw;border-radius:50%;
-  background:conic-gradient(var(--blue) 0 33%,var(--red) 0 66%,var(--yellow) 0 100%);-webkit-mask:radial-gradient(circle,transparent 56%,#000 58%);mask:radial-gradient(circle,transparent 56%,#000 58%);animation:spin 6s linear infinite}
-.bl .star{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:4.4cqw;color:#fff}
+/* BLISS: the app's own splash in miniature: code in the white L, your question typed in the blue L, the ring between */
+.bz{flex:1;min-height:0;display:flex;gap:5cqw;align-items:stretch;padding-bottom:1cqw}
+.bcomp{position:relative;height:100%;aspect-ratio:264/380;flex:0 0 auto;container-type:size;display:block}
+.bcomp>svg:first-child{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.bcode{position:absolute;left:3.8%;top:2.6%;width:86.4%;height:38.4%;overflow:hidden;font:400 2.75cqh/1.6 "Courier Prime","Courier New",Courier,monospace;white-space:nowrap}
+.bcode>div{animation:bscroll 14s linear infinite}
+@keyframes bscroll{to{transform:translateY(-50%)}}
+.btyped{position:absolute;left:9.1%;top:59.5%;width:85.6%;font:400 4.6cqh/1.4 var(--sans);color:#F4F2EC}
+.btyped i{display:inline-block;width:2px;height:5cqh;margin-left:2px;vertical-align:-.9cqh;background:#3D7BFF;animation:bblink .8s step-end infinite}
+@keyframes bblink{50%{opacity:0}}
+.bring{position:absolute;left:42.4%;top:44.7%;width:15.15%;height:auto}
+.bspin{transform-origin:34px 34px;animation:spin 8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.bside{flex:1;min-width:0;display:flex;flex-direction:column;gap:2cqw;justify-content:center}
+.bword{font:700 9.4cqw/1 "Courier Prime","Courier New",Courier,monospace;color:#F4F2EC;letter-spacing:0}
+.btag{font-family:var(--mono);font-size:2.6cqw;letter-spacing:.1em;color:var(--gold)}
+.bside p{font-size:3.2cqw;line-height:1.38;color:#c4cdee}
+.bside p.bin{color:var(--sky)}
+.bside .btn{margin-top:1cqw;white-space:nowrap;font-size:3cqw;letter-spacing:.08em;padding-left:3cqw}
+@media (prefers-reduced-motion:reduce){.bcode>div,.btyped i,.bspin{animation:none}}
 .btn{align-self:flex-start;font-family:var(--mono);font-size:3.3cqw;letter-spacing:.14em;background:var(--yellow);color:#111;padding:1.8cqw 6cqw 1.8cqw 3.6cqw;border-radius:2cqw 0 0 2cqw;font-weight:700;clip-path:polygon(0 0,calc(100% - 3.4cqw) 0,100% 50%,calc(100% - 3.4cqw) 100%,0 100%)}
 
 .seq{display:grid;grid-template-columns:repeat(4,1fr);gap:2cqw;flex:1;min-height:0}
@@ -143,7 +151,7 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 #ovi-badge span::before{content:"";position:absolute;inset:1.6px 2.2px;z-index:-1;background:rgba(5,11,36,.94);
   clip-path:polygon(calc(var(--p) - 1px) 0,calc(100% - var(--p) + 1px) 0,100% 50%,calc(100% - var(--p) + 1px) 100%,calc(var(--p) - 1px) 100%,0 50%)}
 @keyframes glow{50%{filter:drop-shadow(0 0 14px rgba(255,210,63,.85))}}
-@media (prefers-reduced-motion:reduce){#track{transition:none}.hint,.bl .ring,#ovi-badge{animation:none}}
+@media (prefers-reduced-motion:reduce){#track{transition:none}.hint,#ovi-badge{animation:none}}
 /* AURA: the shared GGI background. Orange field left, blue field right, a dark seam between, a gold sun low, slow rotating rays. */
 #aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#05081c;pointer-events:none}
 #aura .blob{position:absolute;inset:-12%;animation:aura-drift 26s ease-in-out infinite alternate;will-change:transform}
@@ -272,13 +280,21 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 
 <section class="pg" data-t="BLISS">
   <div class="kick">The seal as a screen</div>
-  <h2>BLISS: AI without the box.</h2>
-  <div class="bl">
-    <div class="a"><p>Your question and the AI's answer lock together as two L shapes around one shared light. Three thirds, nothing scrolls.</p></div>
-    <div class="q"><p>Inside: AI Life by Prompt, three rooms: BLISS, EPIC AV and SOUND.</p></div>
-    <div class="hole"></div><div class="ring"></div><div class="star">✦</div>
+  <div class="bz">
+    <a class="bcomp" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener" aria-label="Open BLISS">
+      <svg viewBox="0 0 390 562" aria-hidden="true"><rect x="118" y="240" width="160" height="82" fill="#0B0E15"/><path d="M14.5 2.5 H357.5 A12 12 0 0 1 369.5 14.5 V100 C376 108 387 118 387 124 C387 130 376 140 369.5 148 V233 A12 12 0 0 1 357.5 245 H128.5 A6 6 0 0 0 122.5 251 V305 A6 6 0 0 1 116.5 311 H8.5 A6 6 0 0 1 2.5 305 V14.5 A12 12 0 0 1 14.5 2.5 Z" fill="#0F121A" stroke="#E9E6DE" stroke-width="2.5"/><path d="M375.5 559.5 H32.5 A12 12 0 0 1 20.5 547.5 V462 C14 454 3 444 3 438 C3 432 14 422 20.5 414 V329 A12 12 0 0 1 32.5 317 H261.5 A6 6 0 0 0 267.5 311 V257 A6 6 0 0 1 273.5 251 H381.5 A6 6 0 0 1 387.5 257 V547.5 A12 12 0 0 1 375.5 559.5 Z" fill="#0B0E15" stroke="#3D7BFF" stroke-width="2.5"/></svg>
+      <div class="bcode"><div id="bcode"></div></div>
+      <div class="btyped">Are you sure? 😂<i></i></div>
+      <svg class="bring" viewBox="0 0 68 68" aria-hidden="true"><g class="bspin"><circle cx="34" cy="34" r="30" fill="none" stroke="#FF4D4D" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5"/><circle cx="34" cy="34" r="30" fill="none" stroke="#FFC93C" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5" stroke-dashoffset="-62.8"/><circle cx="34" cy="34" r="30" fill="none" stroke="#3D7BFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5" stroke-dashoffset="-125.6"/></g><path d="M34 20 L37.5 30.5 L48 34 L37.5 37.5 L34 48 L30.5 37.5 L20 34 L30.5 30.5 Z" fill="#F4F2EC"/></svg>
+    </a>
+    <div class="bside">
+      <div class="bword">BLISS</div>
+      <div class="btag">AI WITHOUT THE BOX</div>
+      <p>Your question and the AI's answer lock as two L shapes around one light. Nothing scrolls.</p>
+      <p class="bin">Three rooms: BLISS, EPIC AV, SOUND.</p>
+      <a class="btn" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener">OPEN BLISS →</a>
+    </div>
   </div>
-  <a class="btn" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener">OPEN BLISS →</a>
 </section>
 
 <section class="pg" data-t="Panels">
@@ -470,6 +486,24 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   };
   probe.src='seal-l-art.webp';
   setTimeout(holdThenEnter,7000);
+
+  // BLISS screen: the app's own code lines, scrolling in the white L
+  (function(){
+    var R='#FF6B6B',Y='#FFC93C',B='#6E9BFF',G='#3FBF6A',W='#E9E6DE',M='#6E7486';
+    var L=[[['const ',R],['bliss',W],[' = ',W],['ui',B],['.with(',W],['"you"',Y],[');',W]],
+      [['if ',R],['(question) ',W],['answer',B],['.short();',W]],
+      [['ring',B],['.speak({ ',W],['voice',G],[': ',W],['"me"',Y],[' });',W]],
+      [['keys',B],['.forEach(',W],['k',G],[' => ',R],['k.clack());',W]],
+      [['// three thirds, nothing scrolls',M]],
+      [['send',B],['.ding();',W]],
+      [['for ',R],['(ai ',W],['of ',R],['chairs',B],[') sit(ai);',W]],
+      [['return ',R],['"simplicity is bliss"',Y],[';',W]],
+      [['while ',R],['(',W],['true',G],[') ',W],['learn',B],['();',W]]];
+    var el=document.getElementById('bcode'); if(!el)return;
+    var f=document.createDocumentFragment();
+    for(var n=0;n<2;n++)L.forEach(function(line){var d=document.createElement('div');line.forEach(function(p){var s=document.createElement('span');s.style.color=p[1];s.textContent=p[0];d.appendChild(s);});f.appendChild(d);});
+    el.appendChild(f);
+  })();
 
   // Draggable badge
   var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
