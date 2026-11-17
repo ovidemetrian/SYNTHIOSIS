@@ -89,7 +89,7 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 .bz{flex:1;min-height:0;display:flex;gap:5cqw;align-items:stretch;padding-bottom:1cqw}
 .bcomp{position:relative;height:100%;aspect-ratio:264/380;flex:0 0 auto;container-type:size;display:block}
 .bcomp>svg:first-child{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.bcode{position:absolute;left:3.8%;top:2.6%;width:86.4%;height:38.4%;overflow:hidden;font:400 2.75cqh/1.6 "Courier Prime","Courier New",Courier,monospace;white-space:nowrap}
+.bcode{text-shadow:0 1px 2px rgba(0,0,0,.95),0 0 5px rgba(0,0,0,.7);position:absolute;left:3.8%;top:2.6%;width:86.4%;height:38.4%;overflow:hidden;font:400 2.75cqh/1.6 "Courier Prime","Courier New",Courier,monospace;white-space:nowrap}
 .bcode>div{animation:bscroll 14s linear infinite}
 @keyframes bscroll{to{transform:translateY(-50%)}}
 .btyped{position:absolute;left:9.1%;top:59.5%;width:85.6%;font:400 4.6cqh/1.4 var(--sans);color:#F4F2EC}
@@ -103,7 +103,7 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 .btag{font-family:var(--mono);font-size:2.6cqw;letter-spacing:.1em;color:var(--gold)}
 .bside p{font-size:3.2cqw;line-height:1.38;color:#c4cdee}
 .bside p.bin{color:var(--sky)}
-.bside .btn{margin-top:1cqw;white-space:nowrap;font-size:3cqw;letter-spacing:.08em;padding-left:3cqw}
+.bside .btn{margin-top:1cqw;white-space:nowrap;font-size:2.8cqw;letter-spacing:.02em;padding:1.8cqw 5cqw 1.8cqw 2.6cqw;max-width:100%}
 @media (prefers-reduced-motion:reduce){.bcode>div,.btyped i,.bspin{animation:none}}
 .btn{align-self:flex-start;font-family:var(--mono);font-size:3.3cqw;letter-spacing:.14em;background:var(--yellow);color:#111;padding:1.8cqw 6cqw 1.8cqw 3.6cqw;border-radius:2cqw 0 0 2cqw;font-weight:700;clip-path:polygon(0 0,calc(100% - 3.4cqw) 0,100% 50%,calc(100% - 3.4cqw) 100%,0 100%)}
 
@@ -143,8 +143,12 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 #dots i{flex:0 0 auto;width:min(9px,2.2vw);height:min(9px,2.2vw);border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.5);cursor:pointer;transition:transform .25s,background .25s,box-shadow .25s}
 #dots i.on{background:#ff2d2d;transform:scale(1.55);box-shadow:0 0 0 1.5px #fff,0 0 10px rgba(255,45,45,.85)}
 
-#ovi-badge{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));z-index:9;cursor:grab;touch-action:none;user-select:none;
-  filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite}
+/* MADE BY OVI: rides under the nav, drifting slowly from edge to edge; drag it and it stays where you drop it */
+#ovi-lane{width:var(--S);height:34px;position:relative}
+#ovi-badge{position:absolute;left:0;top:0;z-index:9;cursor:grab;touch-action:none;user-select:none;
+  filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite,roam 22s ease-in-out infinite alternate}
+#ovi-badge.held{animation:glow 3s ease-in-out infinite}
+@keyframes roam{from{transform:translateX(0)}to{transform:translateX(var(--run,0px))}}
 /* MADE BY OVI: a long hexagon, pointed at both ends like an arrow */
 #ovi-badge span{--p:15px;position:relative;isolation:isolate;display:block;padding:8px 28px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--yellow);white-space:nowrap;
   background:var(--yellow);clip-path:polygon(var(--p) 0,calc(100% - var(--p)) 0,100% 50%,calc(100% - var(--p)) 100%,var(--p) 100%,0 50%)}
@@ -168,8 +172,8 @@ a.lane::after,.links a::after{content:"";position:absolute;top:-1.5px;bottom:-1.
 @keyframes aura-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
 /* SPLASH: the seal alone over the aura, then the hub */
-#bar,#stage,#nav,#ovi-badge{transition:opacity .9s ease}
-body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-badge{opacity:0}
+#bar,#stage,#nav,#ovi-lane{transition:opacity .9s ease}
+body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-lane{opacity:0}
 #splash{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vmin;background:transparent;transition:opacity .9s ease,visibility .9s;cursor:pointer}
 #splash.out{opacity:0;visibility:hidden}
 #splash .seal{width:var(--SP,86vw);height:var(--SP,86vw);border-radius:2vw;overflow:hidden;box-shadow:0 0 10vw rgba(61,123,255,.45),0 0 0 1.5px rgba(245,197,66,.55);opacity:0;transition:opacity 1.2s ease}
@@ -222,7 +226,7 @@ body.land #dots{grid-column:2;grid-row:3;flex-wrap:nowrap;gap:5px}
 body.land #dots i{width:7px;height:7px}
 body.land #dots i.on{transform:scale(1.5)}
 body.land #nav button{width:58px;height:58px}
-body.land #ovi-badge{left:auto;right:calc(10px + env(safe-area-inset-right));transform:none}
+body.land #ovi-lane{position:fixed;left:12px;right:12px;bottom:calc(4px + env(safe-area-inset-bottom));width:auto;height:30px}
 body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 </style>
 </head>
@@ -282,7 +286,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   <div class="kick">The seal as a screen</div>
   <div class="bz">
     <a class="bcomp" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener" aria-label="Open BLISS">
-      <svg viewBox="0 0 390 562" aria-hidden="true"><rect x="118" y="240" width="160" height="82" fill="#0B0E15"/><path d="M14.5 2.5 H357.5 A12 12 0 0 1 369.5 14.5 V100 C376 108 387 118 387 124 C387 130 376 140 369.5 148 V233 A12 12 0 0 1 357.5 245 H128.5 A6 6 0 0 0 122.5 251 V305 A6 6 0 0 1 116.5 311 H8.5 A6 6 0 0 1 2.5 305 V14.5 A12 12 0 0 1 14.5 2.5 Z" fill="#0F121A" stroke="#E9E6DE" stroke-width="2.5"/><path d="M375.5 559.5 H32.5 A12 12 0 0 1 20.5 547.5 V462 C14 454 3 444 3 438 C3 432 14 422 20.5 414 V329 A12 12 0 0 1 32.5 317 H261.5 A6 6 0 0 0 267.5 311 V257 A6 6 0 0 1 273.5 251 H381.5 A6 6 0 0 1 387.5 257 V547.5 A12 12 0 0 1 375.5 559.5 Z" fill="#0B0E15" stroke="#3D7BFF" stroke-width="2.5"/></svg>
+      <svg viewBox="0 0 390 562" aria-hidden="true"><path d="M14.5 2.5 H357.5 A12 12 0 0 1 369.5 14.5 V100 C376 108 387 118 387 124 C387 130 376 140 369.5 148 V233 A12 12 0 0 1 357.5 245 H128.5 A6 6 0 0 0 122.5 251 V305 A6 6 0 0 1 116.5 311 H8.5 A6 6 0 0 1 2.5 305 V14.5 A12 12 0 0 1 14.5 2.5 Z" fill="rgba(150,156,168,.16)" stroke="#FF8A2B" stroke-width="2.5"/><path d="M375.5 559.5 H32.5 A12 12 0 0 1 20.5 547.5 V462 C14 454 3 444 3 438 C3 432 14 422 20.5 414 V329 A12 12 0 0 1 32.5 317 H261.5 A6 6 0 0 0 267.5 311 V257 A6 6 0 0 1 273.5 251 H381.5 A6 6 0 0 1 387.5 257 V547.5 A12 12 0 0 1 375.5 559.5 Z" fill="rgba(150,156,168,.16)" stroke="#3D7BFF" stroke-width="2.5"/></svg>
       <div class="bcode"><div id="bcode"></div></div>
       <div class="btyped">Are you sure? 😂<i></i></div>
       <svg class="bring" viewBox="0 0 68 68" aria-hidden="true"><g class="bspin"><circle cx="34" cy="34" r="30" fill="none" stroke="#FF4D4D" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5"/><circle cx="34" cy="34" r="30" fill="none" stroke="#FFC93C" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5" stroke-dashoffset="-62.8"/><circle cx="34" cy="34" r="30" fill="none" stroke="#3D7BFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="50 138.5" stroke-dashoffset="-125.6"/></g><path d="M34 20 L37.5 30.5 L48 34 L37.5 37.5 L34 48 L30.5 37.5 L20 34 L30.5 30.5 Z" fill="#F4F2EC"/></svg>
@@ -292,7 +296,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
       <div class="btag">AI WITHOUT THE BOX</div>
       <p>Your question and the AI's answer lock as two L shapes around one light. Nothing scrolls.</p>
       <p class="bin">Three rooms: BLISS, EPIC AV, SOUND.</p>
-      <a class="btn" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener">OPEN BLISS →</a>
+      <a class="btn" href="https://ovidemetrian.github.io/BLISS/" target="_blank" rel="noopener">OPEN →</a>
     </div>
   </div>
 </section>
@@ -402,7 +406,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   <button id="next" aria-label="Next screen">›</button>
 </nav>
 
-<div id="ovi-badge" role="note" aria-label="Made by Ovi"><span>MADE BY OVI</span></div>
+<div id="ovi-lane"><div id="ovi-badge" role="note" aria-label="Made by Ovi"><span>MADE BY OVI</span></div></div>
 
 <script>
 (function(){
@@ -505,10 +509,13 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
     el.appendChild(f);
   })();
 
-  // Draggable badge
-  var b=document.getElementById('ovi-badge'),sx,sy,ox,oy,drag=false;
-  b.addEventListener('pointerdown',function(e){drag=true;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;b.style.cursor='grabbing';});
-  b.addEventListener('pointermove',function(e){if(!drag)return;var x=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+e.clientX-sx)),y=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+e.clientY-sy));b.style.left=x+'px';b.style.top=y+'px';b.style.right='auto';b.style.bottom='auto';b.style.transform='none';});
+  // MADE BY OVI: how far it roams = lane width minus badge width. Drag it to park it.
+  var b=document.getElementById('ovi-badge'),lane=document.getElementById('ovi-lane'),sx,sy,ox,oy,drag=false;
+  function run(){ b.style.setProperty('--run',Math.max(0,lane.clientWidth-b.offsetWidth)+'px'); }
+  run(); addEventListener('resize',function(){setTimeout(run,250)}); if(document.fonts)document.fonts.ready.then(run);
+  b.addEventListener('pointerdown',function(e){drag=true;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;
+    b.classList.add('held');b.style.position='fixed';b.style.transform='none';b.style.left=ox+'px';b.style.top=oy+'px';b.style.cursor='grabbing';});
+  b.addEventListener('pointermove',function(e){if(!drag)return;var x=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+e.clientX-sx)),y=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+e.clientY-sy));b.style.left=x+'px';b.style.top=y+'px';});
   b.addEventListener('pointerup',function(){drag=false;b.style.cursor='grab';});
 
   if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
