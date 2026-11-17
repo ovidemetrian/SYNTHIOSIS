@@ -28,6 +28,11 @@ a{color:inherit;text-decoration:none}
 #bar b{color:var(--ink);font-weight:600}
 #bar b span{color:var(--gold)}
 #count{color:var(--gold)}
+/* NEON WORDMARK: outlined letters in a capsule, cyan glow, vector so it stays sharp at any size */
+#bar b.mark{display:block;width:44%;line-height:0}
+#bar .neon{display:block;width:100%;height:auto;overflow:visible;animation:neon-hum 5s ease-in-out infinite}
+@keyframes neon-hum{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.82}49%{opacity:1}}
+@media (prefers-reduced-motion:reduce){#bar .neon{animation:none}}
 
 /* the stage: a fixed square that never changes shape */
 #stage{width:var(--S);height:var(--S);position:relative;overflow:hidden;border-radius:calc(var(--S)*.035);border:2px solid var(--gline);background:rgba(120,126,138,.14);-webkit-backdrop-filter:blur(14px) saturate(1.1);backdrop-filter:blur(14px) saturate(1.1);box-shadow:0 1.5vmax 5vmax rgba(0,0,0,.45);container-type:size;touch-action:pan-y;user-select:none;-webkit-user-select:none}
@@ -185,6 +190,7 @@ body.splashing .cover .ls *{animation-play-state:paused}
 /* sideways: arrows beside the square, dots under it, so the square gets the full height */
 body.land{display:grid;grid-template-columns:auto var(--S) auto;grid-template-rows:auto var(--S) auto;column-gap:18px;row-gap:6px;align-content:center;justify-content:center}
 body.land #bar{grid-column:2;grid-row:1;font-size:11px}
+body.land #bar b.mark{width:34%}
 body.land #stage{grid-column:2;grid-row:2}
 body.land #nav{display:contents}
 body.land #prev{grid-column:1;grid-row:2;align-self:center}
@@ -200,7 +206,7 @@ body.land #ovi-badge{left:auto;right:calc(10px + env(safe-area-inset-right));tra
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
 <div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><i class="wait"></i><div class="seal"><div class="ls" role="img" aria-label="SYNTHIOSIS seal"><img src="seal-l-bg.webp" alt=""><img class="ls-rays" src="seal-l-rays.webp" alt=""><img src="seal-l-art.webp" alt=""><i class="ls-glow"></i><i class="ls-rip" style="animation-delay:-0.00s"></i><i class="ls-rip" style="animation-delay:-1.14s"></i><i class="ls-rip" style="animation-delay:-2.29s"></i><i class="ls-rip" style="animation-delay:-3.43s"></i><i class="ls-rip" style="animation-delay:-4.57s"></i><i class="ls-rip" style="animation-delay:-5.71s"></i><i class="ls-rip" style="animation-delay:-6.86s"></i><img class="ls-ring" src="seal-l-ring.webp" alt=""><i class="ls-sheen"></i><i class="ls-glint"></i></div></div><small>TAP TO ENTER</small></div>
 
-<header id="bar"><b>SYNTHI<span>O</span>SIS</b><span id="ttl"></span><span id="count"></span></header>
+<header id="bar"><b class="mark"><img class="neon" src="wordmark.svg" alt="SYNTHIOSIS"></b><span id="ttl"></span><span id="count"></span></header>
 
 <main id="stage" aria-roledescription="carousel">
 <div id="track">
