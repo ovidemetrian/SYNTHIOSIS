@@ -30,8 +30,9 @@ a{color:inherit;text-decoration:none}
 #count{color:var(--gold)}
 /* NEON WORDMARK: outlined letters in a capsule, cyan glow, vector so it stays sharp at any size */
 #bar b.mark{display:block;width:44%;line-height:0}
-#bar .neon{display:block;width:100%;height:auto;overflow:visible;animation:neon-hum 5s ease-in-out infinite}
+#bar .neon{display:block;width:100%;height:auto;overflow:visible;animation:neon-hum 5s ease-in-out infinite,neon-hue 40s linear infinite;will-change:filter}
 @keyframes neon-hum{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.82}49%{opacity:1}}
+@keyframes neon-hue{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#bar .neon{animation:none}}
 
 /* the stage: a fixed square that never changes shape */
