@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-620 -530 16417 2494" role="img" aria-label="SYNTHIOSIS">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-620 -530 16017 2494" role="img" aria-label="SYNTHIOSIS">
 <title>SYNTHIOSIS neon wordmark</title>
 <defs>
 <filter id="g" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="70" result="a"/><feGaussianBlur stdDeviation="200" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="a"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -11,5 +11,4 @@
 <use href="#t" xlink:href="#t" stroke="#eaffff" stroke-width="44"/>
 <use href="#cap" xlink:href="#cap" stroke="#eaffff" stroke-width="40"/>
 </g>
-<text x="15427" y="-290" font-family="Arial,sans-serif" font-size="380" fill="#9fe6ff">&#174;</text>
 </svg>
