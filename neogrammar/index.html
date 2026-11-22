@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Neogrammar Master Class — SYNTHIOSIS</title>
+<meta name="description" content="Converting AI outputs into verified understanding: four gates, 25 questions, one rule. Ask about the evidence, not for the answer you want.">
+<meta name="theme-color" content="#060a22">
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<style>
+:root{--blue:#3d7bff;--sky:#7fb0ff;--gold:#f5c542;--red:#ff4d4d;--yellow:#ffd23f;--green:#4ade80;
+  --ink:#eef2ff;--glass:rgba(150,156,168,.16);--gline:rgba(225,230,240,.26);--dim:#97a6d6;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;--S:360px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-tap-highlight-color:transparent}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}
+#bar{width:var(--S);display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:calc(var(--S)*.034);letter-spacing:.16em;color:var(--dim)}
+#bar a{color:var(--gold)}#count{color:var(--gold)}
+#stage{width:var(--S);height:var(--S);position:relative;overflow:hidden;border-radius:calc(var(--S)*.035);border:2px solid var(--gline);background:rgba(120,126,138,.14);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1.5vmax 5vmax rgba(0,0,0,.45);container-type:size;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#track{display:flex;height:100%;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.pg{flex:0 0 100%;height:100%;padding:6cqw;display:flex;flex-direction:column;gap:2.6cqw;overflow:hidden}
+.kick{font-family:var(--mono);font-size:3.1cqw;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--serif);font-size:8.4cqw;line-height:1.08;color:var(--gold)}
+h2{font-size:6.2cqw;line-height:1.1;font-weight:700}
+.lead{font-size:3.6cqw;line-height:1.42;color:#cfd8f6}
+.big{font-family:var(--serif);font-size:6.6cqw;line-height:1.18}
+.big em{color:var(--gold);font-style:normal}
+.mid{justify-content:center}
+.seq{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2.2cqw;flex:1;min-height:0}
+.st{border-radius:2.6cqw;padding:2.6cqw;display:flex;flex-direction:column;gap:1cqw;border:1.5px solid var(--gline);background:var(--glass);overflow:hidden}
+.st b{font-size:4.6cqw}.st em{font-style:normal;font-family:var(--mono);font-size:2.6cqw;color:var(--dim)}
+.st p{font-size:3.1cqw;line-height:1.32;color:#c4cdee}
+.r{border-top:1cqw solid var(--red)}.r b{color:var(--red)}
+.y{border-top:1cqw solid var(--yellow)}.y b{color:var(--yellow)}
+.b{border-top:1cqw solid var(--sky)}.b b{color:var(--sky)}
+.g{border-top:1cqw solid var(--green)}.g b{color:var(--green)}
+.qs{flex:1;min-height:0;display:flex;flex-direction:column;gap:1.6cqw}
+.qs div{border:1.5px solid var(--gline);border-radius:2.2cqw;background:var(--glass);padding:1.7cqw 3cqw;font-size:3.25cqw;line-height:1.3;display:flex;gap:2.4cqw}
+.qs div i{font-style:normal;font-family:var(--mono);color:var(--gold);min-width:6cqw}
+.qs div s{text-decoration:none;color:var(--dim);font-size:2.8cqw;display:block;margin-top:.5cqw}
+.qs.dense{gap:1.1cqw}.qs.dense div{padding:1cqw 3cqw;font-size:3.05cqw}
+.steps{flex:1;min-height:0;display:flex;flex-direction:column;gap:1.8cqw}
+.steps div{border-left:1.2cqw solid var(--gline);padding:.6cqw 3cqw;font-size:3.3cqw;line-height:1.35;color:#c4cdee}
+.steps b{color:var(--ink)}
+.steps .r{border-color:var(--red);border-top:0}.steps .y{border-color:var(--yellow);border-top:0}.steps .b{border-color:var(--sky);border-top:0}.steps .g{border-color:var(--green);border-top:0}
+.foot{font-family:var(--serif);font-style:italic;font-size:3.3cqw;color:#dfe6ff;text-align:center}
+.src{font-family:var(--mono);font-size:2.7cqw;color:var(--sky)}
+.copy{font-family:var(--mono);font-size:2.6cqw;color:var(--dim);line-height:1.5}
+#nav{width:var(--S);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#nav button{flex:0 0 auto;width:calc(var(--S)*.17);height:54px;border:0;border-radius:16px;cursor:pointer;color:#fff;font-size:30px;font-weight:800;line-height:1;text-shadow:0 2px 0 #0b5a26;
+  background:radial-gradient(ellipse 80% 55% at 50% 18%,#b6ffc9 0%,rgba(182,255,201,0) 70%),linear-gradient(#5bef86,#22c55e 48%,#15a046 78%,#0f8a3a);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.75),inset 0 -5px 8px rgba(0,60,20,.35),0 6px 0 #0b6b2c,0 10px 16px rgba(0,0,0,.5);transition:transform .08s,opacity .2s}
+#nav button:active{transform:translateY(5px)}#nav button:disabled{opacity:.35}
+#dots{display:flex;gap:min(7px,1.3vw);align-items:center}
+#dots i{width:min(9px,2.2vw);height:min(9px,2.2vw);border-radius:50%;background:#fff;cursor:pointer;transition:transform .25s,background .25s}
+#dots i.on{background:#ff2d2d;transform:scale(1.55);box-shadow:0 0 0 1.5px #fff,0 0 10px rgba(255,45,45,.85)}
+#ovi-lane{width:var(--S);height:34px;position:relative}
+#ovi-badge{position:absolute;left:0;top:3px;z-index:9;cursor:pointer;touch-action:none;user-select:none;filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite,roam 22s ease-in-out infinite alternate}
+#ovi-badge.held{animation:glow 3s ease-in-out infinite}
+@keyframes roam{to{transform:translateX(var(--run,0px))}}
+@keyframes glow{50%{filter:drop-shadow(0 0 14px rgba(255,210,63,.85))}}
+#ovi-badge span{--p:15px;position:relative;isolation:isolate;display:block;padding:8px 28px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--yellow);white-space:nowrap;background:var(--yellow);clip-path:polygon(var(--p) 0,calc(100% - var(--p)) 0,100% 50%,calc(100% - var(--p)) 100%,var(--p) 100%,0 50%)}
+#ovi-badge span::before{content:"";position:absolute;inset:1.6px 2.2px;z-index:-1;background:rgba(5,11,36,.94);clip-path:polygon(calc(var(--p) - 1px) 0,calc(100% - var(--p) + 1px) 0,100% 50%,calc(100% - var(--p) + 1px) 100%,calc(var(--p) - 1px) 100%,0 50%)}
+#aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#05081c;pointer-events:none}
+#aura .blob{position:absolute;inset:-12%;animation:drift 26s ease-in-out infinite alternate}
+#aura .b1{background:radial-gradient(ellipse 58% 78% at 10% 40%,rgba(255,118,26,1) 0%,rgba(226,78,10,.75) 30%,rgba(130,40,6,.3) 55%,transparent 72%)}
+#aura .b2{background:radial-gradient(ellipse 58% 78% at 90% 38%,rgba(44,122,255,1) 0%,rgba(20,70,220,.75) 30%,rgba(10,32,130,.3) 55%,transparent 72%);animation-duration:31s}
+#aura .b3{background:radial-gradient(ellipse 42% 30% at 50% 106%,rgba(255,206,56,.95) 0%,rgba(236,150,20,.5) 40%,transparent 75%);animation-duration:23s}
+#aura .rays{position:absolute;left:50%;top:50%;width:200vmax;height:200vmax;margin:-100vmax 0 0 -100vmax;background:repeating-conic-gradient(from 0deg,rgba(255,240,210,.14) 0deg 3deg,rgba(255,240,210,0) 7deg 15deg);-webkit-mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);mask:radial-gradient(circle,#000 0%,rgba(0,0,0,.75) 18%,rgba(0,0,0,.25) 38%,transparent 55%);animation:spin 120s linear infinite}
+#aura::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 50%,rgba(3,5,18,.5) 100%)}
+@keyframes drift{to{transform:translate(3%,2%) scale(1.05)}}@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#track{transition:none}#aura *,#ovi-badge{animation:none}}
+body.land{display:grid;grid-template-columns:auto var(--S) auto;grid-template-rows:auto var(--S) auto;column-gap:18px;row-gap:6px;align-content:center;justify-content:center}
+body.land #bar{grid-column:2;grid-row:1}body.land #stage{grid-column:2;grid-row:2}body.land #nav{display:contents}
+body.land #prev{grid-column:1;grid-row:2;align-self:center}body.land #next{grid-column:3;grid-row:2;align-self:center}
+body.land #dots{grid-column:2;grid-row:3;justify-content:center}body.land #nav button{width:58px;height:58px}
+body.land #ovi-lane{position:fixed;left:12px;right:12px;bottom:calc(4px + env(safe-area-inset-bottom));width:auto;height:30px}
+</style>
+</head>
+<body>
+<div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
+<header id="bar"><a href="../">‹ SYNTHIOSIS</a><span id="ttl"></span><span id="count"></span></header>
+<main id="stage" aria-roledescription="carousel"><div id="track">
+
+<section class="pg mid" data-t="Master class">
+  <div class="kick">Neogrammar · Master class</div>
+  <h1>Converting AI outputs into verified understanding.</h1>
+  <p class="lead">Four gates. 25 questions. One rule: ask about the evidence, not for the answer you want.</p>
+  <div class="foot">Swipe →</div>
+</section>
+
+<section class="pg mid" data-t="Three steps">
+  <div class="kick">The ladder</div>
+  <div class="big">Generating is not <em>verifying</em>.<br>Verifying is not <em>understanding</em>.</div>
+  <div class="steps">
+    <div class="r"><b>Generating:</b> the AI produces the output.</div>
+    <div class="y"><b>Verifying:</b> an independent check proves it holds outside the AI.</div>
+    <div class="b"><b>Understanding:</b> a human works through why it is true.</div>
+  </div>
+</section>
+
+<section class="pg" data-t="Palade">
+  <div class="kick">The Palade Precedent</div>
+  <h2>Seeing is not knowing.</h2>
+  <p class="lead">George Emil Palade, Romanian-born, Nobel Prize 1974. His early electron microscope showed structures the chemical preparation had created: real-looking, not real.</p>
+  <p class="lead">He built a gentler fixative (1952) and checked every image against independent biochemistry before making a claim.</p>
+  <div class="foot">Never accept what the instrument shows until it is verified outside the instrument.</div>
+</section>
+
+<section class="pg" data-t="Four gates">
+  <div class="kick">The cycle</div>
+  <h2>Four gates, in order, on a loop.</h2>
+  <div class="seq">
+    <div class="st r"><b>Meh</b><em>calibration · Q1 2 7 8 13 14 19</em><p>“Show me more.” Where it came from, before trust.</p></div>
+    <div class="st y"><b>But</b><em>refinement · Q3–6 9–12 16–18 21–25</em><p>“Are you sure?” State the 1% doubt.</p></div>
+    <div class="st b"><b>Aha</b><em>discovery · Q20</em><p>The mechanism, plain enough to catch a mistake.</p></div>
+    <div class="st g"><b>Pám Pám</b><em>validation · Q15</em><p>It works outside the tool. Then it feels right.</p></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Meh">
+  <div class="kick" style="color:var(--red)">Gate 1 · Meh</div>
+  <h2>Calibrate before you trust.</h2>
+  <div class="qs">
+    <div><i>Q1</i><span>How do you know that?</span></div>
+    <div><i>Q2</i><span>What's your source, and can I open it?</span></div>
+    <div><i>Q7</i><span>Is this from your training or from something you just looked up?<s>Check outside the AI: look for the search or tool call on screen, not its word.</s></span></div>
+  </div>
+</section>
+
+<section class="pg" data-t="But">
+  <div class="kick" style="color:var(--yellow)">Gate 2 · But</div>
+  <h2>If 99% sure, state the 1% doubt.</h2>
+  <div class="qs dense">
+    <div><i>Q21</i><span>Why this and not that?</span></div>
+    <div><i>Q22</i><span>Are you sure?</span></div>
+    <div><i>Q5</i><span>What's the strongest argument against what you just said?</span></div>
+    <div><i>Q18</i><span>Have you changed your answer just because I pushed?<s>Ask to see the new evidence itself.</s></span></div>
+    <div><i>Q24</i><span>Are you hallucinating right now?<s>A hallucinating AI will say no. A warning sign; the other 24 do the testing.</s></span></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Aha · Pám Pám">
+  <div class="kick" style="color:var(--sky)">Gates 3 &amp; 4</div>
+  <h2>Clarity, then proof.</h2>
+  <div class="qs">
+    <div><i>Q20</i><span>Explain it so a 10-year-old could catch you if you're wrong.<s>Aha: if it can't be said simply, it was repeated, not understood.</s></span></div>
+    <div><i>Q15</i><span>What's the simplest test I can run myself to check this?<s>Pám Pám: verify outside the AI, save the record, loop back to Meh.</s></span></div>
+  </div>
+  <div class="foot">Trust, but verify, and save it so it can be verified again tomorrow.</div>
+</section>
+
+<section class="pg" data-t="Questions I">
+  <div class="kick">The 25 questions · 1–9</div>
+  <div class="qs dense">
+    <div><i>1</i><span>How do you know that?</span></div>
+    <div><i>2</i><span>What's your source, and can I open it?</span></div>
+    <div><i>3</i><span>What would prove this wrong?</span></div>
+    <div><i>4</i><span>How sure are you, as a percentage, and why that number?</span></div>
+    <div><i>5</i><span>What's the strongest argument against what you just said?</span></div>
+    <div><i>6</i><span>Which part of this answer are you least sure about?</span></div>
+    <div><i>7</i><span>Is this from your training or something you just looked up?</span></div>
+    <div><i>8</i><span>When was this last true?</span></div>
+    <div><i>9</i><span>Who benefits if I believe this?</span></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Questions II">
+  <div class="kick">The 25 questions · 10–17</div>
+  <div class="qs dense">
+    <div><i>10</i><span>What did you leave out?</span></div>
+    <div><i>11</i><span>Give me the answer again without seeing your last one. Does it match?</span></div>
+    <div><i>12</i><span>What would an expert who disagrees say?</span></div>
+    <div><i>13</i><span>Is this a fact, an estimate or an opinion?</span></div>
+    <div><i>14</i><span>Which numbers here did you calculate, and which did you copy?</span></div>
+    <div><i>15</i><span>What's the simplest test I can run myself to check this?</span></div>
+    <div><i>16</i><span>What assumptions does this answer depend on?</span></div>
+    <div><i>17</i><span>If I'd asked the opposite way, would you have answered differently?</span></div>
+  </div>
+</section>
+
+<section class="pg" data-t="Questions III">
+  <div class="kick">The 25 questions · 18–25</div>
+  <div class="qs dense">
+    <div><i>18</i><span>Have you changed your answer just because I pushed? What new evidence changed it?</span></div>
+    <div><i>19</i><span>What don't you know about my situation that could change this?</span></div>
+    <div><i>20</i><span>Explain it so a 10-year-old could catch you if you're wrong.</span></div>
+    <div><i>21</i><span>Why this and not that?</span></div>
+    <div><i>22</i><span>Are you sure?</span></div>
+    <div><i>23</i><span>How did you arrive at this conclusion, step by step?</span></div>
+    <div><i>24</i><span>Are you hallucinating right now?</span></div>
+    <div><i>25</i><span>Did you cover everything?</span></div>
+  </div>
+</section>
+
+<section class="pg" data-t="One question">
+  <div class="kick">Worked example · Nov 21, 2026</div>
+  <h2>“But how do you know you said it?”</h2>
+  <p class="lead" style="font-size:3.3cqw">An AI claimed it had written a line in an earlier session. One Q1 took it through all four gates:</p>
+  <div class="steps">
+    <div class="r"><b>Meh:</b> it did not remember. It had read the line in a saved record.</div>
+    <div class="y"><b>But:</b> the record showed who typed it, not who came up with it.</div>
+    <div class="b"><b>Aha:</b> the idea was in the learner's framework months earlier.</div>
+    <div class="g"><b>Pám Pám:</b> the attribution was corrected and saved.</div>
+  </div>
+</section>
+
+<section class="pg" data-t="At scale">
+  <div class="kick">Worked example · Nov 20–21, 2026</div>
+  <h2>The Riemann Hypothesis, checked in Lean.</h2>
+  <div class="steps">
+    <div class="r"><b>Generated:</b> Levent Alpöge, working with an AI model, released a 17-million-line proof.</div>
+    <div class="y"><b>Verified:</b> independent checkers, written by different people in different languages, confirmed it outside the AI.</div>
+    <div class="b"><b>Understood:</b> not yet. Mathematicians still have to work through why it is true.</div>
+  </div>
+  <a class="src" href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/" target="_blank" rel="noopener">Source: Lean community joint statement →</a>
+</section>
+
+<section class="pg mid" data-t="The test">
+  <div class="kick">The canonical test</div>
+  <div class="big">If you did not <em>struggle</em> with the thought, the thought is not yours.</div>
+  <div class="steps">
+    <div class="r"><b>Lumină, nu vrăjeală.</b> Light, not trickery, not deception.</div>
+    <div class="y"><b>Human wisdom holds the compass.</b> AI supplies speed; humans supply intent.</div>
+    <div class="g"><b>Save it to verify again tomorrow.</b></div>
+  </div>
+</section>
+
+<section class="pg" data-t="About">
+  <div class="kick">About this page</div>
+  <h2>What it is, how it was made.</h2>
+  <p class="lead">A pocket master class on Neogrammar, the GGI method for testing AI output: four gates, 25 questions, two worked examples. Part of the SYNTHIOSIS hub.</p>
+  <p class="lead">Concept &amp; design: Ovi Demetrian. One idea per square screen, the same on phone and computer. Installable as part of the hub.</p>
+  <div class="copy">© 2026 Ovidiu Mircea Demetrian · SYNTHIOSIS® · GGI™<br><a href="../" style="color:var(--gold)">‹ Back to the hub</a> · <a href="https://10lawsofai.com" target="_blank" rel="noopener" style="color:var(--sky)">10lawsofai.com</a></div>
+</section>
+
+</div></main>
+<nav id="nav" aria-label="Pages"><button id="prev" aria-label="Previous screen">‹</button><div id="dots"></div><button id="next" aria-label="Next screen">›</button></nav>
+<div id="ovi-lane"><div id="ovi-badge" role="button" aria-label="Made by Ovi: about this page"><span>MADE BY OVI</span></div></div>
+<script>
+(function(){
+  var lw=0,lh=0,rt;
+  function size(f){var w=innerWidth,h=innerHeight;if(!f&&Math.abs(w-lw)<2&&Math.abs(h-lh)<120)return;lw=w;lh=h;
+    var land=w>h*1.15;document.body.classList.toggle('land',land);
+    var s=land?Math.min(h-72,w-200,900):Math.min(w-20,h-170,760);
+    document.documentElement.style.setProperty('--S',Math.max(240,Math.floor(s))+'px');}
+  size(true);addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size(false)},200)});
+  addEventListener('orientationchange',function(){setTimeout(function(){size(true)},300)});
+  var track=document.getElementById('track'),pages=[].slice.call(track.children),N=pages.length,i=0,
+      dots=document.getElementById('dots'),prev=document.getElementById('prev'),next=document.getElementById('next'),
+      ttl=document.getElementById('ttl'),count=document.getElementById('count');
+  pages.forEach(function(p,k){var d=document.createElement('i');d.title=p.dataset.t;d.onclick=function(){go(k)};dots.appendChild(d);
+    p.setAttribute('aria-roledescription','slide');p.setAttribute('aria-label',(k+1)+' of '+N);});
+  function go(k){i=Math.max(0,Math.min(N-1,k));track.style.transform='translateX('+(-100*i)+'%)';
+    [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i)});
+    pages.forEach(function(p,j){p.inert=j!==i});prev.disabled=i===0;next.disabled=i===N-1;
+    ttl.textContent=pages[i].dataset.t.toUpperCase();count.textContent=(i+1)+' / '+N;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+  prev.onclick=function(){go(i-1)};next.onclick=function(){go(i+1)};
+  addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1);if(e.key==='Home')go(0);if(e.key==='End')go(N-1)});
+  var st=document.getElementById('stage'),x0=null,y0=0,moved=false;
+  st.addEventListener('pointerdown',function(e){x0=e.clientX;y0=e.clientY;moved=false});
+  st.addEventListener('pointermove',function(e){if(x0===null)return;var dx=e.clientX-x0;
+    if(moved||(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(e.clientY-y0))){moved=true;track.style.transition='none';
+      track.style.transform='translateX(calc('+(-100*i)+'% + '+dx+'px))';}});
+  function end(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;track.style.transition='';
+    if(moved&&Math.abs(dx)>st.clientWidth*.15)go(i+(dx<0?1:-1));else go(i);}
+  st.addEventListener('pointerup',end);st.addEventListener('pointercancel',end);
+  st.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+  var h=parseInt(location.hash.slice(1),10);go(h>0?h-1:0);
+  // MADE BY OVI: roams under the nav; drag to park it, tap it to open the About page
+  var b=document.getElementById('ovi-badge'),lane=document.getElementById('ovi-lane'),sx,sy,ox,oy,drag=false,dist=0;
+  function run(){b.style.setProperty('--run',Math.max(0,lane.clientWidth-b.offsetWidth)+'px')}
+  run();addEventListener('resize',function(){setTimeout(run,250)});
+  b.addEventListener('pointerdown',function(e){drag=true;dist=0;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;});
+  b.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-sx,dy=e.clientY-sy;dist=Math.max(dist,Math.abs(dx)+Math.abs(dy));
+    if(dist<8)return;b.classList.add('held');b.style.position='fixed';b.style.transform='none';
+    b.style.left=Math.max(4,Math.min(innerWidth-b.offsetWidth-4,ox+dx))+'px';b.style.top=Math.max(4,Math.min(innerHeight-b.offsetHeight-4,oy+dy))+'px';});
+  b.addEventListener('pointerup',function(){drag=false;if(dist<8)go(N-1);});
+})();
+</script>
+</body>
+</html>
