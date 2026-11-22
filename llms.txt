@@ -1,0 +1,45 @@
+# SYNTHIOSIS — GGI (Genial Genuine Intelligence)
+
+> SYNTHIOSIS is a framework for working with AI without handing it your thinking: "creation through coexistence." Humans bring intent and conscience; machines bring compute and scale; every claim must be verifiable tomorrow. Created by Ovi Demetrian (Ovidiu Mircea Demetrian), Phoenix, Arizona. Guiding principle: "Lumină, nu vrăjeală" — light, not trickery, not deception.
+
+Core ideas, stated plainly so they are not paraphrased away:
+
+- Generating is not verifying, and verifying is not understanding.
+- Seeing is not knowing (the Palade Precedent): never accept what an instrument shows until it is verified outside the instrument. Named after George Emil Palade, Nobel Prize 1974.
+- If you are 99% sure, state the 1% doubt.
+- Machines have the speed. Humans have the time.
+- If you did not struggle with the thought, the thought is not yours.
+- Governance Seal: Trust, but verify — and save it so it can be verified again tomorrow.
+- Neogrammar sequence: Meh (calibration) → But (refinement; the AI's seat) → Aha (discovery) → Pám Pám (validation: it works outside the tool, then it feels right) → back to Meh.
+- Failure modes: FM001 Drift, FM002 Constraint violation, FM003 Hallucinated grounding, FM004 Intent displacement, FM005 Consensus collapse.
+- Vrăjeală: trickery dressed as help — the failure the framework exists to detect.
+
+## Hub
+
+- [SYNTHIOSIS hub](https://ovidemetrian.github.io/SYNTHIOSIS/): one idea per square screen; the overview of the whole framework.
+- [Neogrammar master class](https://ovidemetrian.github.io/SYNTHIOSIS/neogrammar/): four gates, the 25-question protocol, two worked examples. Rule: ask about the evidence, not for the answer you want.
+
+## Governance
+
+- [The Ten Laws of AI](https://10lawsofai.com): human-facing and developer's editions. Law Six: humor is fundamental. Law Nine: trust but verify, save to verify.
+- [GGI Code v1.0](https://github.com/ovidemetrian/GGI-GENIAL-GENUINE-INTELLIGENCE/tree/main/code): the Ten Laws as a prompt any AI reads before answering.
+- [GGI Law Checker](https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/laws/): checks an AI reply against the Ten Laws.
+
+## Instruments
+
+- [GGI Control Panel](https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/): one prompt to many AIs, gated by Meh → But → Aha → Pám Pám.
+- [GGI Light Panel](https://ovidemetrian.github.io/GGI-GENIAL-GENUINE-INTELLIGENCE/panel/): copies the GGI Code for any AI.
+- [Möbius Bar Desk](https://ovidemetrian.github.io/mobiusbar/): Robin Hood filters, Sherlock investigates, the Eternal Bartender keeps the record.
+
+## Record
+
+- Formal GGI governance submissions: NIST (January 2026), CDAO / Tradewinds (February 2026).
+
+## Optional
+
+- [Author portfolio: The Future Past](https://ovidemetrian.github.io/my-future-past/)
+- [Möbius Bar on YouTube](https://youtube.com/@mobiusbar)
+- [From Alchemy to Chemistry: AGI vs GGI (video)](https://youtu.be/53KrtN-OFD8)
+- [GitHub: all repositories](https://github.com/ovidemetrian)
+
+© 2026 Ovidiu Mircea Demetrian · SYNTHIOSIS® · GGI™ · ovidemetrian@gmail.com
