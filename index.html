@@ -129,14 +129,15 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 .links a span{font-family:var(--mono);font-size:2.75cqw;color:var(--sky)}
 .copy{font-family:var(--mono);font-size:2.6cqw;color:var(--dim);text-align:center;line-height:1.5}
 
-#nav{width:var(--S);display:flex;align-items:center;justify-content:space-between;gap:10px}
-/* NAV: the buttons are the arrows themselves: candy-glass triangles, orange pointing left, steel blue pointing right.
+#nav{width:var(--S);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 calc(var(--S)*.06)}
+/* NAV: the buttons are the arrows themselves: equal-sided candy-glass triangles with softly rounded points,
+   orange pointing left, steel blue pointing right, set in from the edges.
    No symbol on them. White dots, a red dot marks where you are. The pages loop. */
-#nav button{flex:0 0 auto;position:relative;width:calc(var(--S)*.15);height:58px;border:0;padding:0;background:none;cursor:pointer;color:transparent;
+#nav button{flex:0 0 auto;position:relative;width:50px;height:58px;border:0;padding:0;background:none;cursor:pointer;color:transparent;
   --edge:#9a3412;filter:drop-shadow(0 5px 0 var(--edge)) drop-shadow(0 9px 10px rgba(0,0,0,.55));transition:transform .08s,filter .08s}
 #nav button::before,#nav button::after{content:"";position:absolute;inset:0;pointer-events:none}
-#nav #prev::before,#nav #prev::after{clip-path:polygon(0 50%,100% 0,100% 100%)}
-#nav #next::before,#nav #next::after{clip-path:polygon(0 0,100% 50%,0 100%)}
+#nav #prev::before,#nav #prev::after{clip-path:path("M7.8 24.5 L42.2 4.5 Q50 0 50.0 9.0 L50.0 49.0 Q50 58 42.2 53.5 L7.8 33.5 Q0 29.0 7.8 24.5 Z")}
+#nav #next::before,#nav #next::after{clip-path:path("M42.2 33.5 L7.8 53.5 Q0 58 0.0 49.0 L0.0 9.0 Q0 0 7.8 4.5 L42.2 24.5 Q50 29.0 42.2 33.5 Z")}
 /* the gloss: a soft light band across the upper half */
 #nav button::after{background:linear-gradient(rgba(255,255,255,.7),rgba(255,255,255,.12) 42%,rgba(255,255,255,0) 50%)}
 #nav #prev::before{background:radial-gradient(ellipse 70% 50% at 70% 25%,#ffd9b0 0%,rgba(255,217,176,0) 70%),linear-gradient(#ffa24d,#f97316 48%,#e0620c 78%,#c2410c)}
@@ -237,7 +238,7 @@ body.land #next{grid-column:3;grid-row:2;align-self:center}
 body.land #dots{grid-column:2;grid-row:3;flex-wrap:nowrap;gap:5px}
 body.land #dots i{width:7px;height:7px}
 body.land #dots i.on{transform:scale(1.5)}
-body.land #nav button{width:58px;height:58px}
+body.land #nav button{width:50px;height:58px}
 body.land #ovi-lane{position:fixed;left:12px;right:12px;bottom:calc(4px + env(safe-area-inset-bottom));width:auto;height:30px}
 body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 </style>
