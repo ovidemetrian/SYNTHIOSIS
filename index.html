@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&display=block">
 <link rel="preload" as="image" href="seal-l-bg.webp">
 <link rel="preload" as="image" href="seal-l-art.webp">
 <link rel="preload" as="image" href="seal-l-rays.webp">
@@ -193,14 +193,17 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 #fade.quote{pointer-events:auto;cursor:pointer}
 #fade.gone{opacity:0;visibility:hidden;pointer-events:none}
 /* THE QUOTE: "If you did not struggle with the thought, the thought is not yours." Movie-title lettering rising out of the black, line by line, signed in yellow */
-#quote0{grid-area:1/1;position:relative;width:min(88vw,620px);font-family:Cinzel,"Trajan Pro",Georgia,serif;color:#f3ead8;text-align:center;
-  transition:opacity 1.6s ease;text-shadow:0 0 18px rgba(255,214,150,.18)}
-#quote0 p{font-size:clamp(18px,5.8vw,36px);line-height:1.5;letter-spacing:.06em;margin:0 0 .5em;opacity:0;
-  transform:translateY(6px);filter:blur(3px);transition:opacity 2s ease,transform 2.4s ease,filter 2s ease}
-#quote0 p.on{opacity:1;transform:none;filter:none}
-#quote0 .sig{display:block;text-align:right;white-space:nowrap;margin-top:1.4em;font-size:clamp(11.5px,3.3vw,20px);font-weight:600;letter-spacing:.1em;color:#ffd23f;
-  text-shadow:0 0 14px rgba(255,210,63,.35);opacity:0;transition:opacity 2s ease}
-#quote0 .sig.on{opacity:1}
+#quote0{grid-area:1/1;position:relative;width:min(88vw,620px);font-family:"Special Elite","Courier Prime","Courier New",Courier,monospace;color:#efe6d2;text-align:center;
+  transition:opacity 1.6s ease;text-shadow:0 0 1px rgba(239,230,210,.6),0 0 14px rgba(255,214,150,.14)}
+/* set like lines in a book: close together */
+#quote0 p{font-size:clamp(18px,5.6vw,34px);line-height:1.32;letter-spacing:.01em;margin:0}
+#quote0 .sig{display:block;text-align:right;white-space:nowrap;margin-top:1em;font-size:clamp(12px,3.6vw,20px);letter-spacing:.02em;color:#ffd23f;
+  text-shadow:0 0 12px rgba(255,210,63,.35)}
+/* typewriter: every letter waits hidden in place (so nothing shifts), then is struck one at a time */
+#quote0 .k{visibility:hidden;position:relative}
+#quote0 .k.on{visibility:visible}
+#quote0 .k.cur::after{content:"";position:absolute;left:100%;top:.12em;bottom:.08em;width:.09em;margin-left:.06em;background:#ffd23f;visibility:visible;animation:qblink .7s step-end infinite}
+@keyframes qblink{50%{opacity:0}}
 #quote0.out{opacity:0}
 /* SPLASH: the seal alone over the aura, then the hub */
 #bar,#stage,#nav,#ovi-lane{transition:opacity .9s ease}
@@ -516,7 +519,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
   // Opening: out of the black, "If you did not struggle with the thought, the thought is not yours."
-  // rises line by line (movie-title lettering), signed in yellow.
+  // is typed letter by letter on a typewriter, a short tick (vibration) with every key, then signed in yellow.
   // It stays long enough to read, fades away, and the black lifts straight onto the moving seal.
   // While the quote plays, the seal's layers load and decode behind it, so the seal arrives whole.
   // A tap anywhere skips the quote.
@@ -530,18 +533,30 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ fade.classList.add('gone'); }); });
     setTimeout(function(){fade.remove()},2400); }
   function afterQuote(){ quoteDone=true; if(layersOK!==null) reveal(); else at(2500,reveal); }  // slow network: go on with the still seal
+  // wrap every letter so it can be struck in place
+  var keys=[];
+  lines.concat([sig]).forEach(function(el){
+    var txt=el.textContent, f=document.createDocumentFragment(); el.textContent='';
+    for(var c=0;c<txt.length;c++){ var s=document.createElement('span'); s.className='k'; s.textContent=txt[c]; f.appendChild(s); keys.push({s:s,ch:txt[c],end:c===txt.length-1,sig:el===sig}); }
+    el.appendChild(f);
+  });
+  function tick(){ try{ if(navigator.vibrate) navigator.vibrate(7); }catch(e){} }
   function playQuote(){
-    var t=500;
-    lines.forEach(function(l){ at(t,function(){l.classList.add('on')}); t+=1800; });
-    at(t-400,function(){ sig.classList.add('on'); });
-    t+=3000;                                   // time to read it whole
+    var t=600, prev=null;
+    keys.forEach(function(k){
+      at(t,function(){ if(prev)prev.s.classList.remove('cur'); k.s.classList.add('on','cur'); if(k.ch!==' ')tick(); prev=k; });
+      t += k.ch===' ' ? 70 : (k.sig ? 45 : 62+Math.random()*58);     // human rhythm
+      if(k.ch===',' ) t+=260;
+      if(k.end) t+= k.sig ? 0 : 420;                                   // carriage return at each line end
+    });
+    t+=2600;                                   // time to read it whole
     at(t,function(){ quote.classList.add('out'); });
     at(t+1700,afterQuote);
   }
   function skip(){ if(quoteDone)return; timers.forEach(clearTimeout); quote.classList.add('out'); setTimeout(afterQuote,500); }
   fade.addEventListener('click',skip);
   // wait for the lettering (1.5 s at most), so the font never changes mid-fade
-  var fontWait=document.fonts&&document.fonts.load?Promise.race([Promise.all([document.fonts.load('400 1em Cinzel'),document.fonts.load('600 1em Cinzel')]),new Promise(function(r){setTimeout(r,1500)})]):Promise.resolve();
+  var fontWait=document.fonts&&document.fonts.load?Promise.race([document.fonts.load('1em "Special Elite"'),new Promise(function(r){setTimeout(r,1500)})]):Promise.resolve();
   fontWait.then(playQuote,playQuote);
 
   function ready(img){ return new Promise(function(res){

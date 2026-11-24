@@ -1,5 +1,5 @@
 /* SYNTHIOSIS hub — offline shell. Law Eight: the record opens with or without a network. */
-const CACHE = 'synthiosis-hub-v38';
+const CACHE = 'synthiosis-hub-v39';
 const CORE = ['./', './index.html', './manifest.json', './icon.svg'];
 const EXTRAS = ['./seal-l-bg.webp', './seal-l-rays.webp', './seal-l-art.webp', './seal-l-ring.webp', './seal-l-title.webp', './seal-l-frame.webp', './seal-still.jpg', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => e.waitUntil(
