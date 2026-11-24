@@ -9,7 +9,10 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="preload" as="image" href="seal-still.jpg">
+<link rel="preload" as="image" href="seal-l-bg.webp">
+<link rel="preload" as="image" href="seal-l-art.webp">
+<link rel="preload" as="image" href="seal-l-rays.webp">
+<link rel="preload" as="image" href="seal-l-ring.webp">
 <style>
 :root{
   --bg:#050b24; --navy:#0b1640; --line:#22357f;
@@ -156,7 +159,7 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
    and comes back in from the left, never turning around. Drag it and it stays where you drop it */
 #ovi-lane{width:var(--S);height:34px;position:relative;overflow-x:clip;overflow-y:visible}
 #ovi-badge{position:absolute;left:0;top:3px;z-index:9;cursor:grab;touch-action:none;user-select:none;
-  filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite,roam 30s linear infinite}
+  filter:drop-shadow(0 0 10px rgba(255,210,63,.7));animation:glow 3s ease-in-out infinite,roam 30s linear infinite;will-change:transform,opacity}
 #ovi-badge.held{animation:glow 3s ease-in-out infinite}
 @keyframes roam{from{transform:translateX(var(--from,0px))}to{transform:translateX(var(--run,0px))}}
 /* MADE BY OVI: a long hexagon, pointed at both ends like an arrow */
@@ -164,7 +167,7 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
   background:var(--yellow);clip-path:polygon(var(--p) 0,calc(100% - var(--p)) 0,100% 50%,calc(100% - var(--p)) 100%,var(--p) 100%,0 50%)}
 #ovi-badge span::before{content:"";position:absolute;inset:1.6px 2.2px;z-index:-1;background:rgba(5,11,36,.94);
   clip-path:polygon(calc(var(--p) - 1px) 0,calc(100% - var(--p) + 1px) 0,100% 50%,calc(100% - var(--p) + 1px) 100%,calc(var(--p) - 1px) 100%,0 50%)}
-@keyframes glow{50%{filter:drop-shadow(0 0 14px rgba(255,210,63,.85))}}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.72}}
 @media (prefers-reduced-motion:reduce){#track{transition:none}.hint,#ovi-badge{animation:none}}
 /* AURA: the shared GGI background. Orange field left, blue field right, a dark seam between, a gold sun low, slow rotating rays. */
 #aura{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#05081c;pointer-events:none}
@@ -205,27 +208,31 @@ body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ov
 .ls .ls-ring{transform-origin:50% 41.8%;animation:ls-spin 200s linear infinite;will-change:transform}
 .ls .ls-glow{inset:auto;left:49.65%;top:40.88%;width:4.3%;height:4.3%;margin:-2.15% 0 0 -2.15%;border-radius:50%;
   background:radial-gradient(circle,rgba(255,248,208,.9),rgba(255,176,0,0) 70%);animation:ls-beat 6s ease-in-out infinite;will-change:opacity}
-.ls .ls-rip{inset:auto;left:49.65%;top:40.88%;width:.76%;height:.76%;margin:-.38% 0 0 -.38%;border-radius:50%;border:1px solid #fff1c4;
-  box-sizing:border-box;opacity:0;animation:ls-drop 8s cubic-bezier(.2,.6,.3,1) infinite}
-.ls .ls-sheen,.ls .ls-glint{mix-blend-mode:screen;background-repeat:no-repeat;will-change:background-position}
-.ls .ls-sheen{-webkit-mask:url(seal-l-title.webp) 0 0/100% 100%;mask:url(seal-l-title.webp) 0 0/100% 100%;
-  background-image:linear-gradient(110deg,transparent 44%,rgba(255,251,232,.55) 48.5%,#fff 50%,rgba(255,251,232,.55) 51.5%,transparent 56%);
-  background-size:300% 100%;animation:ls-sheen 6s cubic-bezier(.45,0,.55,1) infinite}
-.ls .ls-glint{-webkit-mask:url(seal-l-frame.webp) 0 0/100% 100%;mask:url(seal-l-frame.webp) 0 0/100% 100%;
-  background-image:linear-gradient(90deg,transparent 45%,rgba(255,254,245,.95) 50%,transparent 55%);
-  background-size:300% 100%;animation:ls-glint 7s linear infinite}
+.ls .ls-rip{inset:auto;left:49.65%;top:40.88%;width:14%;height:14%;margin:-7% 0 0 -7%;border-radius:50%;border:1px solid #fff1c4;
+  box-sizing:border-box;opacity:0;transform:scale(.054);animation:ls-drop 8s cubic-bezier(.2,.6,.3,1) infinite;will-change:transform,opacity}
+/* the light sweeps across the title and the frame; the light band itself slides (transform only), so nothing is repainted per frame */
+.ls .ls-sheen,.ls .ls-glint{mix-blend-mode:screen;overflow:hidden}
+.ls .ls-sheen::before,.ls .ls-glint::before{content:"";position:absolute;top:0;left:0;width:300%;height:100%;will-change:transform}
+.ls .ls-sheen{-webkit-mask:url(seal-l-title.webp) 0 0/100% 100%;mask:url(seal-l-title.webp) 0 0/100% 100%}
+.ls .ls-sheen::before{background:linear-gradient(110deg,transparent 44%,rgba(255,251,232,.55) 48.5%,#fff 50%,rgba(255,251,232,.55) 51.5%,transparent 56%);
+  animation:ls-sheen 6s cubic-bezier(.45,0,.55,1) infinite}
+.ls .ls-glint{-webkit-mask:url(seal-l-frame.webp) 0 0/100% 100%;mask:url(seal-l-frame.webp) 0 0/100% 100%}
+.ls .ls-glint::before{background:linear-gradient(90deg,transparent 45%,rgba(255,254,245,.95) 50%,transparent 55%);
+  animation:ls-glint 7s linear infinite}
 /* STEADY FRAME: the still seal shows at once, then melts into the live layers underneath */
 .ls .ls-still{z-index:5;transition:opacity 2s ease}
 .ls.live .ls-still{opacity:0}
+.ls.instant .ls-still{transition:none}
+.ls:not(.live) *,.ls:not(.live) *::before{animation-play-state:paused!important}
 @keyframes ls-spin{to{transform:rotate(360deg)}}
 @keyframes ls-beat{0%,100%{opacity:.35}50%{opacity:.85}}
-@keyframes ls-drop{0%{width:.76%;height:.76%;margin:-.38% 0 0 -.38%;opacity:0}8%{opacity:.95}100%{width:14%;height:14%;margin:-7% 0 0 -7%;opacity:0}}
-@keyframes ls-sheen{0%{background-position:100% 0}55%,100%{background-position:0 0}}
-@keyframes ls-glint{0%{background-position:100% 0}100%{background-position:0 0}}
+@keyframes ls-drop{0%{transform:scale(.054);opacity:0}8%{opacity:.95}100%{transform:scale(1);opacity:0}}
+@keyframes ls-sheen{0%{transform:translateX(-66.667%)}55%,100%{transform:translateX(0)}}
+@keyframes ls-glint{0%{transform:translateX(-66.667%)}100%{transform:translateX(0)}}
 @media (prefers-reduced-motion:reduce){.ls *{animation:none!important}}
-body.splashing .cover .ls *{animation-play-state:paused}
 #splash .seal,.cover .seal{border-radius:0;box-shadow:none;overflow:visible}
-/* first page: the seal fills the whole square, edge to edge */
+/* first page: the seal fills the whole square, edge to edge; no glass blur needed behind it */
+body.p1 #stage{-webkit-backdrop-filter:none;backdrop-filter:none}
 .pg.full{padding:0;gap:0}
 .pg.full .seal{width:100%;height:100%}
 .pg.full .lum,.pg.full .hint{display:none}
@@ -459,6 +466,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
     track.style.transform='translateX('+(-100*i)+'%)';
     [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i); d.textContent = j===i ? (i+1) : '';});
     pages.forEach(function(p,j){p.inert = j!==i});
+    document.body.classList.toggle('p1',i===0);
     ttl.textContent=pages[i].dataset.t.toUpperCase();
     count.textContent=(i+1)+' / '+N;
     try{history.replaceState(null,'','#'+(i+1))}catch(e){}
@@ -487,19 +495,29 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
-  // Opening: black, then fade in once the still seal is ready (2 s at most).
-  // When the moving seal's layers are ready, the still melts into them.
-  var fade=document.getElementById('fade'), shown=false;
-  function show(){ if(shown)return; shown=true; requestAnimationFrame(function(){fade.classList.add('gone');}); setTimeout(function(){fade.remove()},2200); }
-  var still=new Image(); still.onload=show; still.onerror=show; still.src='seal-still.jpg'; setTimeout(show,2000);
-  function live(){ [].forEach.call(document.querySelectorAll('.ls'),function(l){l.classList.add('live')}); }
-  var probe=new Image();
-  probe.onload=function(){ (probe.decode?probe.decode():Promise.resolve()).then(function(){setTimeout(live,1200)},live); };
-  probe.onerror=function(){
-    // layers not uploaded yet: keep the still seal
-    [].forEach.call(document.querySelectorAll('.seal'),function(s){ s.innerHTML='<img src="seal-still.jpg" alt="SYNTHIOSIS seal" style="display:block;width:100%;height:100%">'; });
-  };
-  probe.src='seal-l-art.webp';
+  // Opening: the screen stays black while every layer of the seal is loaded and decoded,
+  // then fades in straight onto the moving seal: one smooth fade, nothing pops in.
+  // On a slow connection (over 3.5 s) it fades in on the still seal instead, which melts
+  // into the moving one once the layers arrive.
+  var fade=document.getElementById('fade'), lsAll=[].slice.call(document.querySelectorAll('.ls'));
+  function reveal(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ fade.classList.add('gone'); }); }); setTimeout(function(){fade.remove()},2400); }
+  function live(instant){ lsAll.forEach(function(l){ if(instant)l.classList.add('instant'); l.classList.add('live'); }); }
+  function ready(img){ return new Promise(function(res){
+    function dec(){ (img.decode?img.decode():Promise.resolve()).then(res,res); }
+    if(img.complete&&img.naturalWidth) dec(); else { img.addEventListener('load',dec,{once:true}); img.addEventListener('error',function(){res('err')},{once:true}); }
+  }); }
+  var layers=[].slice.call(document.querySelectorAll('.cover .ls img:not(.ls-still)'));
+  var done=false;
+  Promise.all(layers.map(ready)).then(function(r){
+    var failed=r.indexOf('err')>=0;
+    if(failed){ // layers missing: keep the still seal for good
+      [].forEach.call(document.querySelectorAll('.seal'),function(s){ s.innerHTML='<img src="seal-still.jpg" alt="SYNTHIOSIS seal" style="display:block;width:100%;height:100%">'; });
+      if(!done){done=true;reveal();} return;
+    }
+    if(!done){ done=true; live(true); reveal(); }   // fast path: black straight into the moving seal
+    else live(false);                                 // slow path: the still melts into it
+  });
+  setTimeout(function(){ if(!done){ done=true; reveal(); } },3500);
 
   // BLISS screen: the app's own code lines, scrolling in the white L
   (function(){
