@@ -519,10 +519,11 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
   // Opening: out of the black, "If you did not struggle with the thought, the thought is not yours."
-  // is typed letter by letter on a typewriter, a short tick (vibration) with every key, then signed in yellow.
+  // waits on black with a blinking cursor; at the first touch it is typed letter by letter on a typewriter,
+  // a short tick (vibration) with every key, then signed in yellow.
   // It stays long enough to read, fades away, and the black lifts straight onto the moving seal.
   // While the quote plays, the seal's layers load and decode behind it, so the seal arrives whole.
-  // A tap anywhere skips the quote.
+  // A second touch skips the quote.
   var fade=document.getElementById('fade'), quote=document.getElementById('quote0'),
       lines=[].slice.call(quote.querySelectorAll('p')), sig=quote.querySelector('.sig'),
       lsAll=[].slice.call(document.querySelectorAll('.ls')), timers=[], layersOK=null, quoteDone=false, revealed=false;
@@ -542,7 +543,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   });
   function tick(){ try{ if(navigator.vibrate) navigator.vibrate(7); }catch(e){} }
   function playQuote(){
-    var t=600, prev=null;
+    var t=150, prev=keys[0];
     keys.forEach(function(k){
       at(t,function(){ if(prev)prev.s.classList.remove('cur'); k.s.classList.add('on','cur'); if(k.ch!==' ')tick(); prev=k; });
       t += k.ch===' ' ? 70 : (k.sig ? 45 : 62+Math.random()*58);     // human rhythm
@@ -554,10 +555,16 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
     at(t+1700,afterQuote);
   }
   function skip(){ if(quoteDone)return; timers.forEach(clearTimeout); quote.classList.add('out'); setTimeout(afterQuote,500); }
-  fade.addEventListener('click',skip);
+  // The phone only allows the tick (vibration) after the screen has been touched once, so the opening waits
+  // on black with a blinking cursor: touch, and the typing starts with a tick on every key.
+  // Nobody touches within 5 s? It types anyway, silently. Once typing, a touch skips ahead.
+  var started=false, armTimer=null;
+  function begin(){ if(started)return; started=true; clearTimeout(armTimer); playQuote(); }
+  function armQuote(){ keys[0].s.classList.add('cur'); armTimer=setTimeout(begin,5000); }
+  fade.addEventListener('pointerdown',function(){ if(!started) begin(); else skip(); });
   // wait for the lettering (1.5 s at most), so the font never changes mid-fade
   var fontWait=document.fonts&&document.fonts.load?Promise.race([document.fonts.load('1em "Special Elite"'),new Promise(function(r){setTimeout(r,1500)})]):Promise.resolve();
-  fontWait.then(playQuote,playQuote);
+  fontWait.then(armQuote,armQuote);
 
   function ready(img){ return new Promise(function(res){
     function dec(){ (img.decode?img.decode():Promise.resolve()).then(res,res); }
