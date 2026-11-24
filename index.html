@@ -144,12 +144,13 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 #dots i{flex:0 0 auto;width:min(9px,2.2vw);height:min(9px,2.2vw);border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.5);cursor:pointer;transition:transform .25s,background .25s,box-shadow .25s}
 #dots i.on{background:#ff2d2d;transform:scale(1.55);box-shadow:0 0 0 1.5px #fff,0 0 10px rgba(255,45,45,.85)}
 
-/* MADE BY OVI: rides under the nav, drifting slowly from edge to edge; drag it and it stays where you drop it */
-#ovi-lane{width:var(--S);height:34px;position:relative}
+/* MADE BY OVI: rides under the nav in one continuous direction: it glides out at the right edge
+   and comes back in from the left, never turning around. Drag it and it stays where you drop it */
+#ovi-lane{width:var(--S);height:34px;position:relative;overflow-x:clip;overflow-y:visible}
 #ovi-badge{position:absolute;left:0;top:3px;z-index:9;cursor:grab;touch-action:none;user-select:none;
-  filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite,roam 22s ease-in-out infinite alternate}
+  filter:drop-shadow(0 0 7px rgba(255,210,63,.55));animation:glow 3s ease-in-out infinite,roam 30s linear infinite}
 #ovi-badge.held{animation:glow 3s ease-in-out infinite}
-@keyframes roam{from{transform:translateX(0)}to{transform:translateX(var(--run,0px))}}
+@keyframes roam{from{transform:translateX(var(--from,0px))}to{transform:translateX(var(--run,0px))}}
 /* MADE BY OVI: a long hexagon, pointed at both ends like an arrow */
 #ovi-badge span{--p:15px;position:relative;isolation:isolate;display:block;padding:8px 28px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.24em;color:var(--yellow);white-space:nowrap;
   background:var(--yellow);clip-path:polygon(var(--p) 0,calc(100% - var(--p)) 0,100% 50%,calc(100% - var(--p)) 100%,var(--p) 100%,0 50%)}
@@ -511,9 +512,9 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
     el.appendChild(f);
   })();
 
-  // MADE BY OVI: how far it roams = lane width minus badge width. Drag it to park it.
+  // MADE BY OVI: starts just off the left edge, travels to just past the right edge, then loops. Drag it to park it.
   var b=document.getElementById('ovi-badge'),lane=document.getElementById('ovi-lane'),sx,sy,ox,oy,drag=false;
-  function run(){ b.style.setProperty('--run',Math.max(0,lane.clientWidth-b.offsetWidth)+'px'); }
+  function run(){ b.style.setProperty('--from',(-b.offsetWidth)+'px'); b.style.setProperty('--run',lane.clientWidth+'px'); }
   run(); addEventListener('resize',function(){setTimeout(run,250)}); if(document.fonts)document.fonts.ready.then(run);
   b.addEventListener('pointerdown',function(e){drag=true;b.setPointerCapture(e.pointerId);var r=b.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top;
     b.classList.add('held');b.style.position='fixed';b.style.transform='none';b.style.left=ox+'px';b.style.top=oy+'px';b.style.cursor='grabbing';});
