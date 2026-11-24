@@ -189,19 +189,20 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 @media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
 /* OPENING: the app starts black and fades in to the seal */
 #fade{position:fixed;inset:0;z-index:30;background:#000;pointer-events:none;transition:opacity 1.8s ease,visibility 1.8s;
-  display:flex;align-items:center;justify-content:center}
+  display:grid;place-items:center}
 #fade.quote{pointer-events:auto;cursor:pointer}
 #fade.gone{opacity:0;visibility:hidden;pointer-events:none}
 /* THE QUOTE: movie-title lettering rising out of the black, line by line, signed in yellow */
-#quote{position:relative;width:min(88vw,620px);font-family:Cinzel,"Trajan Pro",Georgia,serif;color:#f3ead8;text-align:center;
+#quote,#quote0{grid-area:1/1;position:relative;width:min(88vw,620px);font-family:Cinzel,"Trajan Pro",Georgia,serif;color:#f3ead8;text-align:center;
   transition:opacity 1.6s ease;text-shadow:0 0 18px rgba(255,214,150,.18)}
-#quote p{font-size:clamp(17px,5.4vw,34px);line-height:1.5;letter-spacing:.06em;margin:0 0 .5em;opacity:0;
+#quote p,#quote0 p{font-size:clamp(17px,5.4vw,34px);line-height:1.5;letter-spacing:.06em;margin:0 0 .5em;opacity:0;
   transform:translateY(6px);filter:blur(3px);transition:opacity 2s ease,transform 2.4s ease,filter 2s ease}
-#quote p.on{opacity:1;transform:none;filter:none}
+#quote p.on,#quote0 p.on{opacity:1;transform:none;filter:none}
+#quote0 p{font-size:clamp(18px,5.8vw,36px)}
 #quote .sig{display:block;text-align:right;margin-top:1.4em;font-size:clamp(13px,3.6vw,20px);font-weight:600;letter-spacing:.14em;color:#ffd23f;
   text-shadow:0 0 14px rgba(255,210,63,.35);opacity:0;transition:opacity 2s ease}
 #quote .sig.on{opacity:1}
-#quote.out{opacity:0}
+#quote.out,#quote0.out{opacity:0}
 /* SPLASH: the seal alone over the aura, then the hub */
 #bar,#stage,#nav,#ovi-lane{transition:opacity .9s ease}
 body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-lane{opacity:0}
@@ -269,7 +270,11 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 </head>
 <body>
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
-<div id="fade" class="quote" role="dialog" aria-label="Opening quote. Tap to continue."><div id="quote">
+<div id="fade" class="quote" role="dialog" aria-label="Opening quote. Tap to continue."><div id="quote0">
+  <p>If you did not struggle</p>
+  <p>with the thought,</p>
+  <p>the thought is not yours.</p>
+</div><div id="quote">
   <p>A maze traps you.</p>
   <p>A labyrinth guides you.</p>
   <p>A Möbius strip returns you, changed.</p>
@@ -515,11 +520,13 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
-  // Opening: out of the black, the quote rises line by line (movie-title lettering), signed in yellow.
+  // Opening: out of the black, first the test ("If you did not struggle with the thought..."), then the three lines
+  // of the maze, the labyrinth and the Mobius strip rise one by one (movie-title lettering), signed in yellow.
   // It stays long enough to read, fades away, and the black lifts straight onto the moving seal.
   // While the quote plays, the seal's layers load and decode behind it, so the seal arrives whole.
   // A tap anywhere skips the quote.
-  var fade=document.getElementById('fade'), quote=document.getElementById('quote'),
+  var fade=document.getElementById('fade'), quote=document.getElementById('quote'), quote0=document.getElementById('quote0'),
+      lines0=[].slice.call(quote0.querySelectorAll('p')),
       lines=[].slice.call(quote.querySelectorAll('p')), sig=quote.querySelector('.sig'),
       lsAll=[].slice.call(document.querySelectorAll('.ls')), timers=[], layersOK=null, quoteDone=false, revealed=false;
   function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
@@ -531,13 +538,17 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   function afterQuote(){ quoteDone=true; if(layersOK!==null) reveal(); else at(2500,reveal); }  // slow network: go on with the still seal
   function playQuote(){
     var t=500;
-    lines.forEach(function(l){ at(t,function(){l.classList.add('on')}); t+=2300; });
+    lines0.forEach(function(l){ at(t,function(){l.classList.add('on')}); t+=1700; });
+    t+=2000;                                   // time to read the first thought
+    at(t,function(){ quote0.classList.add('out'); });
+    t+=1600;
+    lines.forEach(function(l){ at(t,function(){l.classList.add('on')}); t+=2000; });
     at(t-600,function(){ sig.classList.add('on'); });
-    t+=3200;                                   // time to read it whole
+    t+=2800;                                   // time to read it whole
     at(t,function(){ quote.classList.add('out'); });
     at(t+1700,afterQuote);
   }
-  function skip(){ if(quoteDone)return; timers.forEach(clearTimeout); quote.classList.add('out'); setTimeout(afterQuote,500); }
+  function skip(){ if(quoteDone)return; timers.forEach(clearTimeout); quote.classList.add('out'); quote0.classList.add('out'); setTimeout(afterQuote,500); }
   fade.addEventListener('click',skip);
   // wait for the lettering (1.5 s at most), so the font never changes mid-fade
   var fontWait=document.fonts&&document.fonts.load?Promise.race([Promise.all([document.fonts.load('400 1em Cinzel'),document.fonts.load('600 1em Cinzel')]),new Promise(function(r){setTimeout(r,1500)})]):Promise.resolve();
