@@ -183,6 +183,9 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 @keyframes aura-drift{to{transform:translate(3%,2%) scale(1.05)}}
 @keyframes aura-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
+/* OPENING: the app starts black and fades in to the seal */
+#fade{position:fixed;inset:0;z-index:30;background:#000;pointer-events:none;transition:opacity 1.8s ease,visibility 1.8s}
+#fade.gone{opacity:0;visibility:hidden}
 /* SPLASH: the seal alone over the aura, then the hub */
 #bar,#stage,#nav,#ovi-lane{transition:opacity .9s ease}
 body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-lane{opacity:0}
@@ -244,9 +247,9 @@ body.land #ovi-lane{position:fixed;left:12px;right:12px;bottom:calc(4px + env(sa
 body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 </style>
 </head>
-<body class="splashing">
+<body>
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
-<div id="splash" role="button" aria-label="Enter the SYNTHIOSIS hub"><i class="wait"></i><div class="seal"><div class="ls" role="img" aria-label="SYNTHIOSIS seal"><img src="seal-l-bg.webp" alt=""><img class="ls-rays" src="seal-l-rays.webp" alt=""><img src="seal-l-art.webp" alt=""><i class="ls-glow"></i><i class="ls-rip" style="animation-delay:-0.00s"></i><i class="ls-rip" style="animation-delay:-1.14s"></i><i class="ls-rip" style="animation-delay:-2.29s"></i><i class="ls-rip" style="animation-delay:-3.43s"></i><i class="ls-rip" style="animation-delay:-4.57s"></i><i class="ls-rip" style="animation-delay:-5.71s"></i><i class="ls-rip" style="animation-delay:-6.86s"></i><img class="ls-ring" src="seal-l-ring.webp" alt=""><i class="ls-sheen"></i><i class="ls-glint"></i><img class="ls-still" src="seal-still.jpg" alt=""></div></div><small>TAP TO ENTER</small></div>
+<div id="fade" aria-hidden="true"></div>
 
 <header id="bar"><b class="mark"><img class="neon" src="wordmark.svg" alt="SYNTHIOSIS"></b><span id="ttl"></span><span id="count"></span></header>
 
@@ -486,24 +489,19 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
-  // Splash: the seal first, then the hub. Tap to skip.
-  var sp=document.getElementById('splash');
-  function enter(){if(!sp.classList.contains('out')){sp.classList.add('out');document.body.classList.remove('splashing');setTimeout(function(){sp.remove()},1000);}}
-  sp.addEventListener('click',enter);
-  addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape')enter();});
-  // The still seal shows at once as a steady frame; when the light layers are ready it melts into them, then holds.
-  var hold=matchMedia('(prefers-reduced-motion:reduce)').matches?1500:4500, timer=null;
-  function holdThenEnter(){ if(!timer) timer=setTimeout(enter,hold); }
-  function ready(){ requestAnimationFrame(function(){sp.classList.add('ready');[].forEach.call(document.querySelectorAll('.ls'),function(l){l.classList.add('live')});}); holdThenEnter(); }
+  // Opening: black, then fade in once the still seal is ready (2 s at most).
+  // When the moving seal's layers are ready, the still melts into them.
+  var fade=document.getElementById('fade'), shown=false;
+  function show(){ if(shown)return; shown=true; requestAnimationFrame(function(){fade.classList.add('gone');}); setTimeout(function(){fade.remove()},2200); }
+  var still=new Image(); still.onload=show; still.onerror=show; still.src='seal-still.jpg'; setTimeout(show,2000);
+  function live(){ [].forEach.call(document.querySelectorAll('.ls'),function(l){l.classList.add('live')}); }
   var probe=new Image();
-  probe.onload=function(){ (probe.decode?probe.decode():Promise.resolve()).then(ready,ready); };
+  probe.onload=function(){ (probe.decode?probe.decode():Promise.resolve()).then(function(){setTimeout(live,1200)},live); };
   probe.onerror=function(){
-    // layers not uploaded yet: fall back to the still seal in both places
+    // layers not uploaded yet: keep the still seal
     [].forEach.call(document.querySelectorAll('.seal'),function(s){ s.innerHTML='<img src="seal-still.jpg" alt="SYNTHIOSIS seal" style="display:block;width:100%;height:100%">'; });
-    ready();
   };
   probe.src='seal-l-art.webp';
-  setTimeout(holdThenEnter,7000);
 
   // BLISS screen: the app's own code lines, scrolling in the white L
   (function(){
