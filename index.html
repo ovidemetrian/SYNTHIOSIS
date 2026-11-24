@@ -146,9 +146,11 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 #nav button:active{transform:translateY(4px);filter:drop-shadow(0 1px 0 var(--edge)) drop-shadow(0 3px 5px rgba(0,0,0,.5))}
 #nav button:disabled{opacity:.35;cursor:default}
 #nav button:disabled:active{transform:none}
-#dots{display:flex;gap:min(7px,1.3vw);flex-wrap:nowrap;justify-content:center;align-items:center}
+#dots{display:flex;gap:min(5px,1.1vw);flex-wrap:nowrap;justify-content:center;align-items:center}
 #dots i{flex:0 0 auto;width:min(9px,2.2vw);height:min(9px,2.2vw);border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.5);cursor:pointer;transition:transform .25s,background .25s,box-shadow .25s}
-#dots i.on{background:#ff2d2d;transform:scale(1.55);box-shadow:0 0 0 1.5px #fff,0 0 10px rgba(255,45,45,.85)}
+/* the red dot travels with you and carries the page number */
+#dots i.on{width:21px;height:21px;background:#ff2d2d;box-shadow:0 0 0 1.5px #fff,0 0 10px rgba(255,45,45,.85);
+  display:flex;align-items:center;justify-content:center;font:800 10px/1 var(--sans);font-style:normal;color:#fff;letter-spacing:-.02em;text-shadow:0 1px 1px rgba(120,0,0,.6)}
 
 /* MADE BY OVI: rides under the nav in one continuous direction: it glides out at the right edge
    and comes back in from the left, never turning around. Drag it and it stays where you drop it */
@@ -237,7 +239,7 @@ body.land #prev{grid-column:1;grid-row:2;align-self:center}
 body.land #next{grid-column:3;grid-row:2;align-self:center}
 body.land #dots{grid-column:2;grid-row:3;flex-wrap:nowrap;gap:5px}
 body.land #dots i{width:7px;height:7px}
-body.land #dots i.on{transform:scale(1.5)}
+body.land #dots i.on{width:19px;height:19px;font-size:9px}
 body.land #nav button{width:50px;height:58px}
 body.land #ovi-lane{position:fixed;left:12px;right:12px;bottom:calc(4px + env(safe-area-inset-bottom));width:auto;height:30px}
 body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
@@ -455,7 +457,7 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
   function go(k){
     i=((k%N)+N)%N;   // loops: past the last page comes the first, before the first comes the last
     track.style.transform='translateX('+(-100*i)+'%)';
-    [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i)});
+    [].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i); d.textContent = j===i ? (i+1) : '';});
     pages.forEach(function(p,j){p.inert = j!==i});
     ttl.textContent=pages[i].dataset.t.toUpperCase();
     count.textContent=(i+1)+' / '+N;
