@@ -9,6 +9,9 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=block">
 <link rel="preload" as="image" href="seal-l-bg.webp">
 <link rel="preload" as="image" href="seal-l-art.webp">
 <link rel="preload" as="image" href="seal-l-rays.webp">
@@ -185,8 +188,20 @@ a.foot{display:block;color:var(--gold);font-style:normal;font-family:var(--mono)
 @keyframes aura-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#aura .blob,#aura .rays{animation:none}}
 /* OPENING: the app starts black and fades in to the seal */
-#fade{position:fixed;inset:0;z-index:30;background:#000;pointer-events:none;transition:opacity 1.8s ease,visibility 1.8s}
-#fade.gone{opacity:0;visibility:hidden}
+#fade{position:fixed;inset:0;z-index:30;background:#000;pointer-events:none;transition:opacity 1.8s ease,visibility 1.8s;
+  display:flex;align-items:center;justify-content:center}
+#fade.quote{pointer-events:auto;cursor:pointer}
+#fade.gone{opacity:0;visibility:hidden;pointer-events:none}
+/* THE QUOTE: movie-title lettering rising out of the black, line by line, signed in yellow */
+#quote{position:relative;width:min(88vw,620px);font-family:Cinzel,"Trajan Pro",Georgia,serif;color:#f3ead8;text-align:center;
+  transition:opacity 1.6s ease;text-shadow:0 0 18px rgba(255,214,150,.18)}
+#quote p{font-size:clamp(17px,5.4vw,34px);line-height:1.5;letter-spacing:.06em;margin:0 0 .5em;opacity:0;
+  transform:translateY(6px);filter:blur(3px);transition:opacity 2s ease,transform 2.4s ease,filter 2s ease}
+#quote p.on{opacity:1;transform:none;filter:none}
+#quote .sig{display:block;text-align:right;margin-top:1.4em;font-size:clamp(13px,3.6vw,20px);font-weight:600;letter-spacing:.14em;color:#ffd23f;
+  text-shadow:0 0 14px rgba(255,210,63,.35);opacity:0;transition:opacity 2s ease}
+#quote .sig.on{opacity:1}
+#quote.out{opacity:0}
 /* SPLASH: the seal alone over the aura, then the hub */
 #bar,#stage,#nav,#ovi-lane{transition:opacity .9s ease}
 body.splashing #bar,body.splashing #stage,body.splashing #nav,body.splashing #ovi-lane{opacity:0}
@@ -254,7 +269,12 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 </head>
 <body>
 <div id="aura" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="rays"></i></div>
-<div id="fade" aria-hidden="true"></div>
+<div id="fade" class="quote" role="dialog" aria-label="Opening quote. Tap to continue."><div id="quote">
+  <p>A maze traps you.</p>
+  <p>A labyrinth guides you.</p>
+  <p>A Möbius strip returns you, changed.</p>
+  <span class="sig">— Ovi Demetrian</span>
+</div></div>
 
 <header id="bar"><b class="mark"><img class="neon" src="wordmark.svg" alt="SYNTHIOSIS"></b><span id="ttl"></span><span id="count"></span></header>
 
@@ -495,29 +515,47 @@ body.land #ovi-badge span{font-size:11px;padding:6px 22px;--p:12px}
 
   var h=parseInt(location.hash.slice(1),10); go(h>0?h-1:0);
 
-  // Opening: the screen stays black while every layer of the seal is loaded and decoded,
-  // then fades in straight onto the moving seal: one smooth fade, nothing pops in.
-  // On a slow connection (over 3.5 s) it fades in on the still seal instead, which melts
-  // into the moving one once the layers arrive.
-  var fade=document.getElementById('fade'), lsAll=[].slice.call(document.querySelectorAll('.ls'));
-  function reveal(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ fade.classList.add('gone'); }); }); setTimeout(function(){fade.remove()},2400); }
+  // Opening: out of the black, the quote rises line by line (movie-title lettering), signed in yellow.
+  // It stays long enough to read, fades away, and the black lifts straight onto the moving seal.
+  // While the quote plays, the seal's layers load and decode behind it, so the seal arrives whole.
+  // A tap anywhere skips the quote.
+  var fade=document.getElementById('fade'), quote=document.getElementById('quote'),
+      lines=[].slice.call(quote.querySelectorAll('p')), sig=quote.querySelector('.sig'),
+      lsAll=[].slice.call(document.querySelectorAll('.ls')), timers=[], layersOK=null, quoteDone=false, revealed=false;
+  function at(ms,fn){ timers.push(setTimeout(fn,ms)); }
   function live(instant){ lsAll.forEach(function(l){ if(instant)l.classList.add('instant'); l.classList.add('live'); }); }
+  function reveal(){ if(revealed)return; revealed=true;
+    if(layersOK===true) live(true);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ fade.classList.add('gone'); }); });
+    setTimeout(function(){fade.remove()},2400); }
+  function afterQuote(){ quoteDone=true; if(layersOK!==null) reveal(); else at(2500,reveal); }  // slow network: go on with the still seal
+  function playQuote(){
+    var t=500;
+    lines.forEach(function(l){ at(t,function(){l.classList.add('on')}); t+=2300; });
+    at(t-600,function(){ sig.classList.add('on'); });
+    t+=3200;                                   // time to read it whole
+    at(t,function(){ quote.classList.add('out'); });
+    at(t+1700,afterQuote);
+  }
+  function skip(){ if(quoteDone)return; timers.forEach(clearTimeout); quote.classList.add('out'); setTimeout(afterQuote,500); }
+  fade.addEventListener('click',skip);
+  // wait for the lettering (1.5 s at most), so the font never changes mid-fade
+  var fontWait=document.fonts&&document.fonts.load?Promise.race([Promise.all([document.fonts.load('400 1em Cinzel'),document.fonts.load('600 1em Cinzel')]),new Promise(function(r){setTimeout(r,1500)})]):Promise.resolve();
+  fontWait.then(playQuote,playQuote);
+
   function ready(img){ return new Promise(function(res){
     function dec(){ (img.decode?img.decode():Promise.resolve()).then(res,res); }
     if(img.complete&&img.naturalWidth) dec(); else { img.addEventListener('load',dec,{once:true}); img.addEventListener('error',function(){res('err')},{once:true}); }
   }); }
   var layers=[].slice.call(document.querySelectorAll('.cover .ls img:not(.ls-still)'));
-  var done=false;
   Promise.all(layers.map(ready)).then(function(r){
-    var failed=r.indexOf('err')>=0;
-    if(failed){ // layers missing: keep the still seal for good
+    if(r.indexOf('err')>=0){ // layers missing: keep the still seal for good
+      layersOK=false;
       [].forEach.call(document.querySelectorAll('.seal'),function(s){ s.innerHTML='<img src="seal-still.jpg" alt="SYNTHIOSIS seal" style="display:block;width:100%;height:100%">'; });
-      if(!done){done=true;reveal();} return;
-    }
-    if(!done){ done=true; live(true); reveal(); }   // fast path: black straight into the moving seal
-    else live(false);                                 // slow path: the still melts into it
+    } else layersOK=true;
+    if(revealed){ if(layersOK) live(false); }   // arrived late: the still melts into the moving seal
+    else if(quoteDone) reveal();
   });
-  setTimeout(function(){ if(!done){ done=true; reveal(); } },3500);
 
   // BLISS screen: the app's own code lines, scrolling in the white L
   (function(){
